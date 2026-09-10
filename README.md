@@ -8,10 +8,6 @@ theory, open Unity in week four, and end with each student presenting a game onl
 they made. Lecture slides live here as self-contained Bento decks — one HTML file
 each, no build step, no dependencies, no internet needed to present.
 
-> **Note on the repo name.** The official course outline says **CS464**; this
-> repository is named `ITU-CS646`. File names follow the outline. Worth renaming one
-> or the other so they agree.
-
 ## Layout
 
 ```
