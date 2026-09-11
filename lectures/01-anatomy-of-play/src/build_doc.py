@@ -259,11 +259,16 @@ els = [
     kicker("k3",MX,72,"Who's teaching this"),
     txt("t3",MX,104,1000,70,"Your Instructor",56,weight=800,family=DISPLAY),
     ring("phring",246,382,300,"rgba(255,138,61,0.40)",strokeWidth=1.5,march=(30,10)),
-    ellipse("ph",246-132,382-132,264,264,SURFACE2,gradient=grad(35,"#242B36","#171C25"),
-            stroke="rgba(255,138,61,0.30)",strokeWidth=1.5,shadow=glow(ACCENT_GLOW,42),
-            extra={"fx":{"enter":"fade-up","order":0}}),
-    txt("phi",246-132,382-132,264,264,"MRB",62,color=ACCENT,weight=800,family=DISPLAY,align="center",
-        valign="middle",extra={"fx":{"enter":"fade-up","order":0}}),
+    {"id":"ph","type":"image","x":246-132,"y":382-132,"w":264,"h":264,"rotation":0,"opacity":1,
+     "src":"asset:photo-instructor","fit":"cover","radius":132,
+     "shadow":glow(ACCENT_GLOW,42),"fx":{"enter":"fade-up","order":0}},
+    ring("phborder",246,382,264,"rgba(255,138,61,0.35)",strokeWidth=1.5,dashed=False,
+         extra={"fx":{"enter":"fade-up","order":0}}),
+    rect("phsocdiv",114,544,264,1,BORDER,extra={"fx":{"enter":"fade-up","order":0}}),
+    txt("phsoc1",114,556,264,20,"x.com/imadratzz",12.5,color=FAINT,family=MONOF,align="center",
+        extra={"letterSpacing":0.5,"fx":{"enter":"fade-up","order":0}}),
+    txt("phsoc2",114,580,264,20,"linkedin.com/in/madratzz",12.5,color=FAINT,family=MONOF,align="center",
+        extra={"letterSpacing":0.5,"fx":{"enter":"fade-up","order":0}}),
     txt("iname",456,228,700,50,"Muhammad Raza Butt",38,weight=800,family=DISPLAY,extra={"fx":{"enter":"fade-up","order":1}}),
     txt("irole",456,280,700,26,"Technical Head &mdash; Games Dept., 9D Technologies (Lahore)",18,
         color=ACCENT,weight=700,extra={"fx":{"enter":"fade-up","order":1}}),
@@ -1499,6 +1504,8 @@ print(f"Total slides built: {len(slides)}")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = json.load(open(os.path.join(HERE, "fonts", "fonts.json"), encoding="utf-8"))
+PHOTO = json.load(open(os.path.join(HERE, "fonts", "photo-asset.json"), encoding="utf-8"))
+ASSETS = {**FONTS, **PHOTO}
 
 doc = {
     "format": "bento/slides",
@@ -1522,7 +1529,7 @@ doc = {
         {"family": "Space Mono", "asset": "font-spacemono", "weight": "400"},
         {"family": "Space Mono", "asset": "font-spacemono-bold", "weight": "700"},
     ],
-    "assets": FONTS,
+    "assets": ASSETS,
     "present": {"progress": True},
     "slides": slides
 }

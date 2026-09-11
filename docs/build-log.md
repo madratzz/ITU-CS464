@@ -68,6 +68,17 @@ designed slide.
 **Cover, both section breaks and the closing slide** all gained the orbit motif, so
 the deck opens and closes on the same image.
 
+## Things that changed after the first pass
+
+- **The instructor slide got a real photo.** The "MRB" monogram avatar is now an
+  actual photo, embedded as a JPEG data URI (`asset:photo-instructor`) in the same
+  `src/fonts/` folder as the font assets — resized/compressed client-side to ~25KB
+  so it doesn't bloat the deck. The `bento-slides` skill's `link` field only
+  supports internal slide navigation, so the Twitter/X and LinkedIn handles are
+  shown as plain text under the photo (`x.com/imadratzz`,
+  `linkedin.com/in/madratzz`) rather than as clickable links — matching how the
+  email line already works.
+
 ## Things that did not work
 
 - **A photograph of Richard Bartle could not be fetched.** Wikipedia file URLs are
