@@ -221,7 +221,7 @@ els = [
     ring("cvphborder",128,559,64,"rgba(255,138,61,0.35)",strokeWidth=1.5,dashed=False),
     txt("instr1", 180, 528, 600, 34, "Muhammad Raza Butt &nbsp;&middot;&nbsp; Information Technology University", 17,
         color=MUTED, family=BODYF),
-    txt("instr2", 180, 560, 600, 30, "hello@madratzz.net", 15, color=FAINT, family=MONOF),
+    txt("instr2", 180, 560, 600, 30, "hello@madratzz.net &nbsp;&middot;&nbsp; muhammadraza.vf@itu.edu.pk", 13.5, color=FAINT, family=MONOF),
 ] + social_badge("cvsocx", 189, 602, 18, "X", ACCENT) + [
     txt("cvsoc1t", 204, 592, 100, 20, "@imadratzz", 12, color=MUTED, family=MONOF),
 ] + social_badge("cvsocin", 320, 602, 18, "in", ACCENT) + [
