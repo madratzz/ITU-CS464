@@ -91,15 +91,26 @@ the deck opens and closes on the same image.
   replacing the "RB" monogram placeholder mentioned below.
 - **The "action matrix" slide is credited to its actual author.** It's Amy Jo
   Kim's *Social Action Matrix* — she built it because Bartle's player types
-  didn't always fit the casual/social games she was designing; this deck's
-  "Create" quadrant is her "Expressers" quadrant renamed, verb list unchanged.
-  A new "Who Is Amy Jo Kim?" slide (same bio-slide pattern as the Bartle one,
-  "AJK" monogram — no licensed photo was available) now sits right before it,
-  and the matrix slide itself was retitled from "From Motivation to Mechanic"
-  to "The Social Action Matrix" with a proper byline. This inserted a slide, so
+  didn't always fit the casual/social games she was designing. A new
+  "Who Is Amy Jo Kim?" slide (same bio-slide pattern as the Bartle one, "AJK"
+  monogram — no licensed photo was available) now sits right before it, and
+  the matrix slide itself was retitled from "From Motivation to Mechanic" to
+  "The Social Action Matrix" with a proper byline. This inserted a slide, so
   everything from the old slide 31 onward renumbered by one (35 visible slides
   -> 36); the dynamic `{{page}}/{{pages}}` footer tokens absorbed it without
   any other changes needed.
+- **The matrix content itself was then corrected to match Kim's own diagram
+  exactly**, after the user supplied her original illustrations. Quadrant
+  names/positions (Compete top-left, Express top-right, Collaborate
+  bottom-left, Explore bottom-right — "Express", not the earlier "Create"),
+  the verb lists per quadrant, and the axis wording (ACTING/INTERACTING
+  vertically, PEOPLE/CONTENT horizontally — her own words, not an approximation)
+  all now match the source. This also fixed the Bartle-type tags: Kim's
+  vertical axis reuses Bartle's own ACTING/INTERACTING language, so with the
+  axes right the mapping is an exact 1:1 (Compete=Killers, Express=Achievers,
+  Collaborate=Socializers, Explore=Explorers) instead of the earlier
+  approximate wording. The chip grid went from 3 columns to 4 to fit
+  Explore's 8 verbs in the same card height as everyone else's 6-7.
 
 ## Things that did not work
 

@@ -1433,21 +1433,23 @@ els = [
 slides.append(slide(31, els, "One minute — the point is that the verb framework on the next slide isn't an invented teaching device, it's a real, named framework from a working game/product designer, built specifically because Bartle's player types didn't always fit the casual and social games she was designing. No licensed photo of her was available to embed, so this uses the deck's own monogram placeholder — swap in a real one if you get a usable photo."))
 
 # ============================================================ 23. THE ACTION MATRIX (verbs, complementary to Bartle)
-# Real crossing axes this time (same visual language as the Bartle matrix), and
-# corrected axis wording: the vertical split is not "alone vs together" (Compete
-# is explicitly about other players; Create is explicitly solo) — it's whether
-# you're taking the world/players as they already are (top) or adding to them
-# (bottom). Colours now come from the deck's own accent mapping (magenta =
-# Killers, teal = Socializers) instead of the grading donut's palette.
+# Amy Jo Kim's actual Social Action Matrix: quadrant names, verb lists and axis
+# wording (ACTING/INTERACTING, PEOPLE/CONTENT) all matched to her own diagram
+# rather than an approximation. Her vertical axis reuses Bartle's own
+# ACTING/INTERACTING vocabulary — she extended his PLAYERS/WORLD split into
+# PEOPLE/CONTENT — so with the axes right, the Bartle-type mapping becomes an
+# exact 1:1: Compete=Killers, Express=Achievers, Collaborate=Socializers,
+# Explore=Explorers. Colours follow that same mapping (the deck's own accent
+# palette already assigns those four colours to those four Bartle types).
 action_quads = [
-    ("Explore","Browse &amp; judge what's already there","closest to Bartle's Explorers",
-     ["View","Collect","Rate","Vote","Curate","Review"],ACCENT3,ACCENT3_SOFT),
-    ("Compete","Act on other players, directly","closest to Bartle's Killers &amp; Achievers",
-     ["Win","Challenge","Compare","Showoff","Taunt"],ACCENT4,ACCENT4_SOFT),
-    ("Create","Make and shape your own content","a builder's flavor of Explorer",
-     ["Purchase","Design","Build","Decorate","Customize","Express"],ACCENT,ACCENT_SOFT),
+    ("Compete","Act on other players, directly","closest to Bartle's Killers",
+     ["Win","Fight","Challenge","Steal","Showoff","Compare","Taunt"],ACCENT4,ACCENT4_SOFT),
+    ("Express","Make and shape your own content","closest to Bartle's Achievers",
+     ["Build","Create","Design","Purchase","Decorate","Customize","Choose"],ACCENT,ACCENT_SOFT),
     ("Collaborate","Interact with players, not against them","closest to Bartle's Socializers",
      ["Comment","Like","Greet","Help","Share","Contribute"],ACCENT2,ACCENT2_SOFT),
+    ("Explore","Browse &amp; judge what's already there","closest to Bartle's Explorers",
+     ["Collect","Rate","View","Find","Vote","Search","Curate","Review"],ACCENT3,ACCENT3_SOFT),
 ]
 AM_X0, AM_Y0 = 200, 236          # grid top-left (col 1 sits at x=656, same as before)
 AM_CW, AM_CH = 424, 185          # cell size
@@ -1455,6 +1457,7 @@ AM_COLGAP, AM_ROWGAP = 32, 20
 AM_X1 = AM_X0 + AM_CW + AM_COLGAP                 # 656
 AM_CX = (AM_X0 + AM_X1 + AM_CW) / 2.0             # vertical divider x — dead centre of the canvas
 AM_CY = AM_Y0 + AM_CH + AM_ROWGAP / 2.0           # horizontal divider y
+# top-left, top-right, bottom-left, bottom-right — matches Kim's own layout
 AM_POS = [(AM_X0, AM_Y0), (AM_X1, AM_Y0), (AM_X0, AM_Y0 + AM_CH + AM_ROWGAP), (AM_X1, AM_Y0 + AM_CH + AM_ROWGAP)]
 
 els = [
@@ -1464,16 +1467,17 @@ els = [
     txt("t23mb",MX,178,1080,22,
         "Instead of naming the player, it names the <b>verb</b> your game gives them.",
         15,color=MUTED),
-    # crossing axes, drawn the same way as the Bartle matrix
+    # crossing axes, drawn the same way as the Bartle matrix — and using Bartle's
+    # own ACTING/INTERACTING vocabulary, since Kim's diagram does too
     rect("am-axv",AM_CX-1,AM_Y0-6,2,AM_CH*2+AM_ROWGAP+12,BORDER2,extra={"fx":{"enter":"fade","order":0}}),
     rect("am-axh",AM_X0-6,AM_CY-1,(AM_X1+AM_CW)-AM_X0+12,2,BORDER2,extra={"fx":{"enter":"fade","order":0}}),
-    txt("am-axt",AM_CX-200,AM_Y0-24,400,16,"MEASURING",10.5,color=TEXT,weight=700,family=MONOF,
+    txt("am-axt",AM_CX-200,AM_Y0-24,400,16,"ACTING",10.5,color=TEXT,weight=700,family=MONOF,
         align="center",extra={"letterSpacing":3,"fx":{"enter":"fade","order":0}}),
-    txt("am-axb",AM_CX-200,AM_Y0+AM_CH*2+AM_ROWGAP+8,400,16,"ADDING",10.5,color=TEXT,weight=700,family=MONOF,
+    txt("am-axb",AM_CX-200,AM_Y0+AM_CH*2+AM_ROWGAP+8,400,16,"INTERACTING",10.5,color=TEXT,weight=700,family=MONOF,
         align="center",extra={"letterSpacing":3,"fx":{"enter":"fade","order":0}}),
-    txt("am-axl",MX,AM_CY-9,AM_X0-MX-16,20,"CONTENT",11,color=TEXT,weight=700,family=MONOF,
+    txt("am-axl",MX,AM_CY-9,AM_X0-MX-16,20,"PEOPLE",11,color=TEXT,weight=700,family=MONOF,
         align="right",extra={"letterSpacing":3,"fx":{"enter":"fade","order":0}}),
-    txt("am-axr",AM_X1+AM_CW+16,AM_CY-9,1184-(AM_X1+AM_CW+16),20,"PLAYERS",11,color=TEXT,weight=700,family=MONOF,
+    txt("am-axr",AM_X1+AM_CW+16,AM_CY-9,1184-(AM_X1+AM_CW+16),20,"CONTENT",11,color=TEXT,weight=700,family=MONOF,
         extra={"letterSpacing":3,"fx":{"enter":"fade","order":0}}),
 ]
 for qi,(name,desc,tag,verbs,col,soft) in enumerate(action_quads):
@@ -1485,14 +1489,14 @@ for qi,(name,desc,tag,verbs,col,soft) in enumerate(action_quads):
         txt(f"am-{name}d",x+26,y+48,AM_CW-52,20,desc,12.5,color=MUTED,extra=fx),
         txt(f"am-{name}tag",x+26,y+70,AM_CW-52,16,tag.upper(),10,color=col,weight=700,family=MONOF,extra={"letterSpacing":1,**fx}),
     ]
-    cw, cg = 116, 12
-    colx = [x+26, x+26+cw+cg, x+26+2*(cw+cg)]
+    cw, cg, ch, rg = 86, 8, 30, 8
+    colx = [x+26+i*(cw+cg) for i in range(4)]
     for j,verb in enumerate(verbs):
-        cx = colx[j%3]; cy = y+92+ (j//3)*(32+10)
-        els += chip(f"am-{name}-c{j}",cx,cy,cw,32,verb,col)
+        cx = colx[j%4]; cy = y+92+ (j//4)*(ch+rg)
+        els += chip(f"am-{name}-c{j}",cx,cy,cw,ch,verb,col)
         els[-1]["fx"] = fx["fx"]; els[-2]["fx"] = fx["fx"]
 els += footer(32)
-slides.append(slide(32, els, "Amy Jo Kim's own model, introduced on the previous slide — not Bartle's. Her original quadrants are Competitors, Collaborators, Explorers and Expressers; this deck renames Expressers to \"Create\", but the verb list — Design, Build, Decorate, Customize, Express — is hers unchanged. Walk the axes: left-right is content vs. players; top-bottom is measuring/judging what already exists (top: Explore browses and rates it, Compete measures you against other players) versus adding something new (bottom: Create adds content, Collaborate adds to the relationship). Ask each student to name 3 verbs their planned final project already supports, and 1 it's currently missing."))
+slides.append(slide(32, els, "Amy Jo Kim's own model, introduced on the previous slide — not Bartle's, but it borrows his own axis vocabulary directly: ACTING vs. INTERACTING, same as the Bartle matrix, extended to PEOPLE vs. CONTENT instead of PLAYERS vs. WORLD. That makes the Bartle-type mapping exact this time: Compete (acting on people) = Killers, Express (acting on content) = Achievers, Collaborate (interacting with people) = Socializers, Explore (interacting with content) = Explorers. Ask each student to name 3 verbs their planned final project already supports, and 1 it's currently missing."))
 
 # ============================================================ 19. DESIGNING FOR PLAYER TYPES
 els = [
