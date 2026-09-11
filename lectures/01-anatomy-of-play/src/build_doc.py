@@ -167,6 +167,20 @@ def chip(id,x,y,w,h,label,col):
         txt(f"{id}t",x,y,w,h,label,12.5,color=col,weight=700,family=MONOF,align="center",valign="middle"),
     ]
 
+def social_badge(id,cx,cy,d,glyph,col,glyph_size=None,extra=None):
+    """A small ring badge with a short glyph (e.g. 'X' or 'in') — a neutral,
+    deck-styled stand-in for a platform icon rather than a reproduction of the
+    platform's own logo artwork/colours."""
+    r = d/2.0
+    gs = glyph_size or d*0.46
+    ring_e = ellipse(f"{id}bg",cx-r,cy-r,d,d,"rgba(0,0,0,0)",stroke=col,strokeWidth=1.5)
+    txt_e = txt(f"{id}g",cx-r,cy-r,d,d,glyph,gs,color=col,weight=800,family=DISPLAY,
+                align="center",valign="middle")
+    if extra:
+        ring_e.update(extra)
+        txt_e.update(extra)
+    return [ring_e, txt_e]
+
 def kicker(id,x,y,label,color=ACCENT,size=15,w=800):
     upper = label.upper().replace("&MIDDOT;","&middot;").replace("&AMP;","&amp;").replace("&NDASH;","&ndash;").replace("&MDASH;","&mdash;")
     return txt(id,x,y,w,24,upper,size,color=color,weight=700,family=MONOF,
@@ -202,9 +216,16 @@ els = [
         extra={"letterSpacing":-2}),
     txt("t1b", MX, 372, 1090, 90, "The Anatomy of Play", 34, color=MUTED, weight=400, family=BODYF),
     rect("cf3", MX, 500, 340, 2, BORDER2),
-    txt("instr1", MX, 528, 700, 34, "Muhammad Raza Butt &nbsp;&middot;&nbsp; Information Technology University", 17,
+    {"id":"cvph","type":"image","x":128-32,"y":559-32,"w":64,"h":64,"rotation":0,"opacity":1,
+     "src":"asset:photo-instructor","fit":"cover","radius":32},
+    ring("cvphborder",128,559,64,"rgba(255,138,61,0.35)",strokeWidth=1.5,dashed=False),
+    txt("instr1", 180, 528, 600, 34, "Muhammad Raza Butt &nbsp;&middot;&nbsp; Information Technology University", 17,
         color=MUTED, family=BODYF),
-    txt("instr2", MX, 560, 700, 30, "hello@madratzz.net", 15, color=FAINT, family=MONOF),
+    txt("instr2", 180, 560, 600, 30, "hello@madratzz.net", 15, color=FAINT, family=MONOF),
+] + social_badge("cvsocx", 189, 602, 18, "X", ACCENT) + [
+    txt("cvsoc1t", 204, 592, 100, 20, "@imadratzz", 12, color=MUTED, family=MONOF),
+] + social_badge("cvsocin", 320, 602, 18, "in", ACCENT) + [
+    txt("cvsoc2t", 335, 592, 110, 20, "/madratzz", 12, color=MUTED, family=MONOF),
 ] + orbit_motif("cv", 986, 286, 300, core=92) + stars("cv", [
     (742, 128, 3, "rgba(255,255,255,0.45)", 26, 40),
     (1148, 470, 4, "rgba(255,138,61,0.55)", 34, 52),
@@ -265,9 +286,11 @@ els = [
     ring("phborder",246,382,264,"rgba(255,138,61,0.35)",strokeWidth=1.5,dashed=False,
          extra={"fx":{"enter":"fade-up","order":0}}),
     rect("phsocdiv",114,544,264,1,BORDER,extra={"fx":{"enter":"fade-up","order":0}}),
-    txt("phsoc1",114,556,264,20,"x.com/imadratzz",12.5,color=FAINT,family=MONOF,align="center",
+] + social_badge("phsocx",164,566,26,"X",ACCENT,extra={"fx":{"enter":"fade-up","order":0}}) + [
+    txt("phsoc1",187,556,154,20,"@imadratzz",13,color=MUTED,family=MONOF,
         extra={"letterSpacing":0.5,"fx":{"enter":"fade-up","order":0}}),
-    txt("phsoc2",114,580,264,20,"linkedin.com/in/madratzz",12.5,color=FAINT,family=MONOF,align="center",
+] + social_badge("phsocin",164,602,26,"in",ACCENT,extra={"fx":{"enter":"fade-up","order":0}}) + [
+    txt("phsoc2",187,592,154,20,"/madratzz",13,color=MUTED,family=MONOF,
         extra={"letterSpacing":0.5,"fx":{"enter":"fade-up","order":0}}),
     txt("iname",456,228,700,50,"Muhammad Raza Butt",38,weight=800,family=DISPLAY,extra={"fx":{"enter":"fade-up","order":1}}),
     txt("irole",456,280,700,26,"Technical Head &mdash; Games Dept., 9D Technologies (Lahore)",18,
@@ -1104,10 +1127,10 @@ els = [
     kicker("k25b",MX,72,"The researcher behind the taxonomy", color=ACCENT2),
     txt("t25b",MX,104,1100,64,"Who Is Richard Bartle?",50,weight=800,family=DISPLAY),
     ring("rbphring",226,344,260,"rgba(85,214,194,0.40)",strokeWidth=1.5,march=(28,10)),
-    ellipse("rbph",226-114,344-114,228,228,SURFACE2,gradient=grad(35,"#242B36","#171C25"),
-            stroke="rgba(85,214,194,0.30)",strokeWidth=1.5,shadow=glow(ACCENT2_GLOW,40)),
-    txt("rbphi",226-114,344-114,228,228,"RB",54,color=ACCENT2,weight=800,family=DISPLAY,
-        align="center",valign="middle"),
+    {"id":"rbph","type":"image","x":226-114,"y":344-114,"w":228,"h":228,"rotation":0,"opacity":1,
+     "src":"asset:photo-bartle","fit":"cover","radius":114,
+     "shadow":glow(ACCENT2_GLOW,40)},
+    ring("rbphborder",226,344,228,"rgba(85,214,194,0.35)",strokeWidth=1.5,dashed=False),
     txt("rbname",396,222,700,44,"Richard A. Bartle",32,weight=800,family=DISPLAY),
     txt("rbrole",396,270,700,28,"Emeritus Professor &middot; University of Essex",17,color=ACCENT2,weight=600),
     rect("rbdiv",396,308,700,1,BORDER),
@@ -1505,7 +1528,8 @@ print(f"Total slides built: {len(slides)}")
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = json.load(open(os.path.join(HERE, "fonts", "fonts.json"), encoding="utf-8"))
 PHOTO = json.load(open(os.path.join(HERE, "fonts", "photo-asset.json"), encoding="utf-8"))
-ASSETS = {**FONTS, **PHOTO}
+PHOTO_BARTLE = json.load(open(os.path.join(HERE, "fonts", "photo-bartle-asset.json"), encoding="utf-8"))
+ASSETS = {**FONTS, **PHOTO, **PHOTO_BARTLE}
 
 doc = {
     "format": "bento/slides",

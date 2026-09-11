@@ -74,18 +74,29 @@ the deck opens and closes on the same image.
   actual photo, embedded as a JPEG data URI (`asset:photo-instructor`) in the same
   `src/fonts/` folder as the font assets — resized/compressed client-side to ~25KB
   so it doesn't bloat the deck. The `bento-slides` skill's `link` field only
-  supports internal slide navigation, so the Twitter/X and LinkedIn handles are
-  shown as plain text under the photo (`x.com/imadratzz`,
-  `linkedin.com/in/madratzz`) rather than as clickable links — matching how the
-  email line already works.
+  supports internal slide navigation, so external links aren't clickable in the
+  player either way.
+- **Social handles got a real icon treatment.** `social_badge()` draws a small
+  ring badge with a plain glyph ("X" / "in") in the deck's own accent colour —
+  legible as "this is the X/LinkedIn handle" without reproducing either
+  platform's actual logo artwork or brand colours (X's mark and LinkedIn's blue
+  "in" square are both protected — a generic deck-styled badge sidesteps that
+  while still doing the job). Used on the cover (small, next to a photo
+  thumbnail) and on the instructor slide (larger, under the photo).
+- **The instructor's photo and handles now also appear on the cover**, next to
+  the existing name/university credit line, reusing the same `photo-instructor`
+  asset so the file doesn't carry the image twice.
+- **Richard Bartle got a real photo too**, the same treatment as the instructor
+  photo — `asset:photo-bartle`, its own small JPEG data URI in `src/fonts/`,
+  replacing the "RB" monogram placeholder mentioned below.
 
 ## Things that did not work
 
-- **A photograph of Richard Bartle could not be fetched.** Wikipedia file URLs are
-  cache-only through the available fetch tooling, and the University of Essex faculty
-  image was refused by the network egress policy. The slide uses an "RB" monogram in
-  the deck's own visual language instead. If a properly licensed photo turns up,
-  drop it in and swap the monogram.
+- **A photograph of Richard Bartle could not be fetched automatically.** Wikipedia
+  file URLs are cache-only through the available fetch tooling, and the University
+  of Essex faculty image was refused by the network egress policy. The slide used
+  an "RB" monogram in the deck's own visual language until a photo was supplied
+  directly and dropped in (see above) — the auto-fetch path itself is still closed.
 - **"Click anywhere to go back" as a full-canvas invisible rect.** See below.
 
 ## Technical findings
