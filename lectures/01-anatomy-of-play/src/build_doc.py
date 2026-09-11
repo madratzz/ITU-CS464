@@ -1407,45 +1407,66 @@ els = [
 slides.append(slide(30, els, "Use this to bridge from theory to their own project pitch: ask each table/group to name the genre their planned final project is closest to, and predict which player type(s) it's implicitly designed for. If it doesn't match what they intended, that's useful information before they build."))
 
 # ============================================================ 23. THE ACTION MATRIX (verbs, complementary to Bartle)
+# Real crossing axes this time (same visual language as the Bartle matrix), and
+# corrected axis wording: the vertical split is not "alone vs together" (Compete
+# is explicitly about other players; Create is explicitly solo) — it's whether
+# you're taking the world/players as they already are (top) or adding to them
+# (bottom). Colours now come from the deck's own accent mapping (magenta =
+# Killers, teal = Socializers) instead of the grading donut's palette.
 action_quads = [
     ("Explore","Browse &amp; judge what's already there","closest to Bartle's Explorers",
-     ["View","Collect","Rate","Vote","Curate","Review"],ACCENT3,ACCENT3_SOFT,(96,222)),
+     ["View","Collect","Rate","Vote","Curate","Review"],ACCENT3,ACCENT3_SOFT),
     ("Compete","Act on other players, directly","closest to Bartle's Killers &amp; Achievers",
-     ["Win","Challenge","Compare","Showoff","Taunt"],MIDT,"rgba(209,78,128,0.14)",(656,222)),
+     ["Win","Challenge","Compare","Showoff","Taunt"],ACCENT4,ACCENT4_SOFT),
     ("Create","Make and shape your own content","a builder's flavor of Explorer",
-     ["Purchase","Design","Build","Decorate","Customize","Express"],ACCENT,ACCENT_SOFT,(96,427)),
+     ["Purchase","Design","Build","Decorate","Customize","Express"],ACCENT,ACCENT_SOFT),
     ("Collaborate","Interact with players, not against them","closest to Bartle's Socializers",
-     ["Comment","Like","Greet","Help","Share","Contribute"],ASSIGN,ACCENT2_SOFT,(656,427)),
+     ["Comment","Like","Greet","Help","Share","Contribute"],ACCENT2,ACCENT2_SOFT),
 ]
+AM_X0, AM_Y0 = 200, 236          # grid top-left (col 1 sits at x=656, same as before)
+AM_CW, AM_CH = 424, 185          # cell size
+AM_COLGAP, AM_ROWGAP = 32, 20
+AM_X1 = AM_X0 + AM_CW + AM_COLGAP                 # 656
+AM_CX = (AM_X0 + AM_X1 + AM_CW) / 2.0             # vertical divider x — dead centre of the canvas
+AM_CY = AM_Y0 + AM_CH + AM_ROWGAP / 2.0           # horizontal divider y
+AM_POS = [(AM_X0, AM_Y0), (AM_X1, AM_Y0), (AM_X0, AM_Y0 + AM_CH + AM_ROWGAP), (AM_X1, AM_Y0 + AM_CH + AM_ROWGAP)]
+
 els = [
     rect("bg23m",0,0,W,H,BG),
     kicker("k23m",MX,72,"One more lens on motivation", color=ACCENT2),
     txt("t23m",MX,104,1100,64,"From Motivation to Mechanic",46,weight=800,family=DISPLAY),
-    txt("t23mb",MX,168,1080,44,
-        "A sibling framework: instead of naming the player, it names the <b>verb</b> your game gives them. "
-        "Left&ndash;right is about content vs. about other players; top&ndash;bottom is acting alone vs. interacting with someone.",
-        15,color=MUTED,lh=1.45),
+    txt("t23mb",MX,178,1080,22,
+        "A sibling framework: instead of naming the player, it names the <b>verb</b> your game gives them.",
+        15,color=MUTED),
+    # crossing axes, drawn the same way as the Bartle matrix
+    rect("am-axv",AM_CX-1,AM_Y0-6,2,AM_CH*2+AM_ROWGAP+12,BORDER2,extra={"fx":{"enter":"fade","order":0}}),
+    rect("am-axh",AM_X0-6,AM_CY-1,(AM_X1+AM_CW)-AM_X0+12,2,BORDER2,extra={"fx":{"enter":"fade","order":0}}),
+    txt("am-axt",AM_CX-200,AM_Y0-24,400,16,"MEASURING",10.5,color=TEXT,weight=700,family=MONOF,
+        align="center",extra={"letterSpacing":3,"fx":{"enter":"fade","order":0}}),
+    txt("am-axb",AM_CX-200,AM_Y0+AM_CH*2+AM_ROWGAP+8,400,16,"ADDING",10.5,color=TEXT,weight=700,family=MONOF,
+        align="center",extra={"letterSpacing":3,"fx":{"enter":"fade","order":0}}),
+    txt("am-axl",MX,AM_CY-9,AM_X0-MX-16,20,"CONTENT",11,color=TEXT,weight=700,family=MONOF,
+        align="right",extra={"letterSpacing":3,"fx":{"enter":"fade","order":0}}),
+    txt("am-axr",AM_X1+AM_CW+16,AM_CY-9,1184-(AM_X1+AM_CW+16),20,"PLAYERS",11,color=TEXT,weight=700,family=MONOF,
+        extra={"letterSpacing":3,"fx":{"enter":"fade","order":0}}),
 ]
-for qi,(name,desc,tag,verbs,col,soft,(x,y)) in enumerate(action_quads):
-    fx = {"fx":{"enter":"fade-up","order":qi}}
+for qi,(name,desc,tag,verbs,col,soft) in enumerate(action_quads):
+    x,y = AM_POS[qi]
+    fx = {"fx":{"enter":"fade-up","order":qi+1}}
     els += [
-        rect(f"am-{name}",x,y,528,185,soft,radius=14,stroke=col,strokeWidth=1.5,extra=fx),
-        txt(f"am-{name}t",x+28,y+16,472,30,name,21,weight=800,family=DISPLAY,color=TEXT,extra=fx),
-        txt(f"am-{name}d",x+28,y+48,472,20,desc,13,color=MUTED,extra=fx),
-        txt(f"am-{name}tag",x+28,y+70,472,16,tag.upper(),10.5,color=col,weight=700,family=MONOF,extra={"letterSpacing":1,**fx}),
+        rect(f"am-{name}",x,y,AM_CW,AM_CH,soft,radius=14,stroke=col,strokeWidth=1.5,extra=fx),
+        txt(f"am-{name}t",x+26,y+16,AM_CW-52,30,name,20,weight=800,family=DISPLAY,color=TEXT,extra=fx),
+        txt(f"am-{name}d",x+26,y+48,AM_CW-52,20,desc,12.5,color=MUTED,extra=fx),
+        txt(f"am-{name}tag",x+26,y+70,AM_CW-52,16,tag.upper(),10,color=col,weight=700,family=MONOF,extra={"letterSpacing":1,**fx}),
     ]
-    colx = [x+28, x+28+148+14, x+28+2*(148+14)]
+    cw, cg = 116, 12
+    colx = [x+26, x+26+cw+cg, x+26+2*(cw+cg)]
     for j,verb in enumerate(verbs):
         cx = colx[j%3]; cy = y+92+ (j//3)*(32+10)
-        els += chip(f"am-{name}-c{j}",cx,cy,148,32,verb,col)
+        els += chip(f"am-{name}-c{j}",cx,cy,cw,32,verb,col)
         els[-1]["fx"] = fx["fx"]; els[-2]["fx"] = fx["fx"]
-els += [
-    txt("t23mnote",MX,636,1088,20,
-        "For your final project: list the verbs your game actually offers &mdash; a thin verb list is a thin game.",
-        13,color=FAINT),
-]
 els += footer(31)
-slides.append(slide(31, els, "This isn't Bartle's own model — it's a complementary one (sometimes called a social/action matrix) that trades player identity for concrete verbs, which is more directly actionable when they're staring at a blank Unity scene. Ask each student to name 3 verbs their planned final project already supports, and 1 it's currently missing."))
+slides.append(slide(31, els, "This isn't Bartle's own model — it's a complementary one (sometimes called a social/action matrix) that trades player identity for concrete verbs, which is more directly actionable when they're staring at a blank Unity scene. Walk the axes: left-right is content vs. players (same as before); top-bottom is now correctly framed as measuring/judging what already exists (top: Explore browses and rates it, Compete measures you against other players) versus adding something new (bottom: Create adds content, Collaborate adds to the relationship). Ask each student to name 3 verbs their planned final project already supports, and 1 it's currently missing."))
 
 # ============================================================ 19. DESIGNING FOR PLAYER TYPES
 els = [
