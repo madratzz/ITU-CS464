@@ -1412,10 +1412,10 @@ els = [
     kicker("k30b",MX,72,"The designer behind the framework", color=ACCENT2),
     txt("t30b",MX,104,1100,64,"Who Is Amy Jo Kim?",50,weight=800,family=DISPLAY),
     ring("ajkphring",226,344,260,"rgba(85,214,194,0.40)",strokeWidth=1.5,march=(28,10)),
-    ellipse("ajkph",226-114,344-114,228,228,SURFACE2,gradient=grad(35,"#242B36","#171C25"),
-            stroke="rgba(85,214,194,0.30)",strokeWidth=1.5,shadow=glow(ACCENT2_GLOW,40)),
-    txt("ajkphi",226-114,344-114,228,228,"AJK",46,color=ACCENT2,weight=800,family=DISPLAY,
-        align="center",valign="middle"),
+    {"id":"ajkph","type":"image","x":226-114,"y":344-114,"w":228,"h":228,"rotation":0,"opacity":1,
+     "src":"asset:photo-amyjokim","fit":"cover","radius":114,
+     "shadow":glow(ACCENT2_GLOW,40)},
+    ring("ajkphborder",226,344,228,"rgba(85,214,194,0.35)",strokeWidth=1.5,dashed=False),
     txt("ajkname",396,222,700,44,"Amy Jo Kim",32,weight=800,family=DISPLAY),
     txt("ajkrole",396,270,700,28,"Game Designer &amp; Founder, Game Thinking",17,color=ACCENT2,weight=600),
     rect("ajkdiv",396,308,700,1,BORDER),
@@ -1430,7 +1430,7 @@ els = [
         "<i>Fortune named her one of the Top 10 most influential women in games; she's taught game design at USC and Stanford.</i>",
         14,color=FAINT),
 ] + footer(31)
-slides.append(slide(31, els, "One minute — the point is that the verb framework on the next slide isn't an invented teaching device, it's a real, named framework from a working game/product designer, built specifically because Bartle's player types didn't always fit the casual and social games she was designing. No licensed photo of her was available to embed, so this uses the deck's own monogram placeholder — swap in a real one if you get a usable photo."))
+slides.append(slide(31, els, "One minute — the point is that the verb framework on the next slide isn't an invented teaching device, it's a real, named framework from a working game/product designer, built specifically because Bartle's player types didn't always fit the casual and social games she was designing."))
 
 # ============================================================ 23. THE ACTION MATRIX (verbs, complementary to Bartle)
 # Amy Jo Kim's actual Social Action Matrix: quadrant names, verb lists and axis
@@ -1580,7 +1580,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = json.load(open(os.path.join(HERE, "fonts", "fonts.json"), encoding="utf-8"))
 PHOTO = json.load(open(os.path.join(HERE, "fonts", "photo-asset.json"), encoding="utf-8"))
 PHOTO_BARTLE = json.load(open(os.path.join(HERE, "fonts", "photo-bartle-asset.json"), encoding="utf-8"))
-ASSETS = {**FONTS, **PHOTO, **PHOTO_BARTLE}
+PHOTO_AJK = json.load(open(os.path.join(HERE, "fonts", "photo-amyjokim-asset.json"), encoding="utf-8"))
+ASSETS = {**FONTS, **PHOTO, **PHOTO_BARTLE, **PHOTO_AJK}
 
 doc = {
     "format": "bento/slides",

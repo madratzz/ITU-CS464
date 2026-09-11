@@ -93,12 +93,12 @@ the deck opens and closes on the same image.
   Kim's *Social Action Matrix* — she built it because Bartle's player types
   didn't always fit the casual/social games she was designing. A new
   "Who Is Amy Jo Kim?" slide (same bio-slide pattern as the Bartle one, "AJK"
-  monogram — no licensed photo was available) now sits right before it, and
-  the matrix slide itself was retitled from "From Motivation to Mechanic" to
-  "The Social Action Matrix" with a proper byline. This inserted a slide, so
-  everything from the old slide 31 onward renumbered by one (35 visible slides
-  -> 36); the dynamic `{{page}}/{{pages}}` footer tokens absorbed it without
-  any other changes needed.
+  monogram at first — a real photo was added afterward, see below) now sits
+  right before it, and the matrix slide itself was retitled from "From
+  Motivation to Mechanic" to "The Social Action Matrix" with a proper byline.
+  This inserted a slide, so everything from the old slide 31 onward renumbered
+  by one (35 visible slides -> 36); the dynamic `{{page}}/{{pages}}` footer
+  tokens absorbed it without any other changes needed.
 - **The matrix content itself was then corrected to match Kim's own diagram
   exactly**, after the user supplied her original illustrations. Quadrant
   names/positions (Compete top-left, Express top-right, Collaborate
@@ -111,6 +111,11 @@ the deck opens and closes on the same image.
   Collaborate=Socializers, Explore=Explorers) instead of the earlier
   approximate wording. The chip grid went from 3 columns to 4 to fit
   Explore's 8 verbs in the same card height as everyone else's 6-7.
+- **The Amy Jo Kim bio slide got a real photo.** Same treatment as the
+  instructor and Bartle photos: resized/compressed to a small JPEG data URI
+  (`asset:photo-amyjokim`, `src/fonts/photo-amyjokim-asset.json`), swapped in
+  for the "AJK" monogram ellipse+text, same 228px circle geometry and glow
+  ring as the Bartle photo so all three bio slides now match visually.
 
 ## Things that did not work
 
