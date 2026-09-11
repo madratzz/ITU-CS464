@@ -1,6 +1,6 @@
 # Lecture 01 — The Anatomy of Play
 
-35 slides. Deliberately theory-first: the course opens Unity in week four, and this
+36 slides. Deliberately theory-first: the course opens Unity in week four, and this
 lecture exists so the room shares a vocabulary before anyone writes a line of C#.
 
 **Deck:** [`CS464-Lecture-01-Anatomy-of-Play.bento.html`](CS464-Lecture-01-Anatomy-of-Play.bento.html)
@@ -16,8 +16,8 @@ lecture exists so the room shares a vocabulary before anyone writes a line of C#
 | 10 | Learning outcomes, mapped to CLOs and Bloom levels |
 | 11–17 | What is a game? Parts of a game, the magic circle, designing it, rules of play, finite vs infinite games, what games give us |
 | 18–25 | The MDA framework — mechanics, dynamics, aesthetics, the 8 kinds of fun, a worked example |
-| 26–32 | Who plays? Richard Bartle, the taxonomy, player types in the wild, the action matrix, designing for who plays |
-| 33–35 | Key takeaways, next up, questions |
+| 26–33 | Who plays? Richard Bartle, the taxonomy, player types in the wild, who's actually behind the Social Action Matrix (Amy Jo Kim), the matrix itself, designing for who plays |
+| 34–36 | Key takeaways, next up, questions |
 
 ## Slides worth knowing about before you present
 
@@ -42,7 +42,7 @@ and you can open whichever ones the room asks about. A back button returns you.
 
 ## Previews
 
-Contact sheets of all 35 slides: [`preview/`](preview/).
+Contact sheets: [`preview/`](preview/) — generated before the latest round of edits (photos, the Amy Jo Kim slide), so treat them as a rough guide rather than the current deck.
 
 ![Slides 1–6](preview/slides-01.jpg)
 

@@ -203,7 +203,7 @@ def footer(n, total=None, label="CS464 · GAME DEVELOPMENT"):
             align="right", extra={"letterSpacing":1.5}),
     ]
 
-TOTAL = 35
+TOTAL = 36
 
 # ============================================================ 1. COVER
 els = [
@@ -1406,6 +1406,32 @@ els = [
 ] + footer(30)
 slides.append(slide(30, els, "Use this to bridge from theory to their own project pitch: ask each table/group to name the genre their planned final project is closest to, and predict which player type(s) it's implicitly designed for. If it doesn't match what they intended, that's useful information before they build."))
 
+# ============================================================ 22b. WHO IS AMY JO KIM? (credits the Social Action Matrix's real author)
+els = [
+    rect("bg30b",0,0,W,H,BG),
+    kicker("k30b",MX,72,"The designer behind the framework", color=ACCENT2),
+    txt("t30b",MX,104,1100,64,"Who Is Amy Jo Kim?",50,weight=800,family=DISPLAY),
+    ring("ajkphring",226,344,260,"rgba(85,214,194,0.40)",strokeWidth=1.5,march=(28,10)),
+    ellipse("ajkph",226-114,344-114,228,228,SURFACE2,gradient=grad(35,"#242B36","#171C25"),
+            stroke="rgba(85,214,194,0.30)",strokeWidth=1.5,shadow=glow(ACCENT2_GLOW,40)),
+    txt("ajkphi",226-114,344-114,228,228,"AJK",46,color=ACCENT2,weight=800,family=DISPLAY,
+        align="center",valign="middle"),
+    txt("ajkname",396,222,700,44,"Amy Jo Kim",32,weight=800,family=DISPLAY),
+    txt("ajkrole",396,270,700,28,"Game Designer &amp; Founder, Game Thinking",17,color=ACCENT2,weight=600),
+    rect("ajkdiv",396,308,700,1,BORDER),
+    txt("ajktl",396,330,720,230,
+        "<b>PhD</b> &mdash; Behavioral Neuroscience, University of Washington; BA in Experimental Psychology, UC San Diego.<br>"
+        "<b>2000</b> &mdash; publishes <i>Community Building on the Web</i>, on designing for online communities.<br>"
+        "<b>2014</b> &mdash; introduces the Social Action Matrix &mdash; the framework we cover next.<br>"
+        "<b>2018</b> &mdash; publishes <i>Game Thinking</i>, her methodology for validating and shipping high-retention products.<br>"
+        "<b>Design portfolio</b> &mdash; The Sims, Rock Band, Ultima Online, eBay, Netflix, Covet Fashion, Replika.",
+        15.5,color=MUTED,lh=1.65),
+    txt("ajknote",MX,576,1088,30,
+        "<i>Fortune named her one of the Top 10 most influential women in games; she's taught game design at USC and Stanford.</i>",
+        14,color=FAINT),
+] + footer(31)
+slides.append(slide(31, els, "One minute — the point is that the verb framework on the next slide isn't an invented teaching device, it's a real, named framework from a working game/product designer, built specifically because Bartle's player types didn't always fit the casual and social games she was designing. No licensed photo of her was available to embed, so this uses the deck's own monogram placeholder — swap in a real one if you get a usable photo."))
+
 # ============================================================ 23. THE ACTION MATRIX (verbs, complementary to Bartle)
 # Real crossing axes this time (same visual language as the Bartle matrix), and
 # corrected axis wording: the vertical split is not "alone vs together" (Compete
@@ -1433,10 +1459,10 @@ AM_POS = [(AM_X0, AM_Y0), (AM_X1, AM_Y0), (AM_X0, AM_Y0 + AM_CH + AM_ROWGAP), (A
 
 els = [
     rect("bg23m",0,0,W,H,BG),
-    kicker("k23m",MX,72,"One more lens on motivation", color=ACCENT2),
-    txt("t23m",MX,104,1100,64,"From Motivation to Mechanic",46,weight=800,family=DISPLAY),
+    kicker("k23m",MX,72,"Amy Jo Kim's framework", color=ACCENT2),
+    txt("t23m",MX,104,1100,64,"The Social Action Matrix",46,weight=800,family=DISPLAY),
     txt("t23mb",MX,178,1080,22,
-        "A sibling framework: instead of naming the player, it names the <b>verb</b> your game gives them.",
+        "Instead of naming the player, it names the <b>verb</b> your game gives them.",
         15,color=MUTED),
     # crossing axes, drawn the same way as the Bartle matrix
     rect("am-axv",AM_CX-1,AM_Y0-6,2,AM_CH*2+AM_ROWGAP+12,BORDER2,extra={"fx":{"enter":"fade","order":0}}),
@@ -1465,8 +1491,8 @@ for qi,(name,desc,tag,verbs,col,soft) in enumerate(action_quads):
         cx = colx[j%3]; cy = y+92+ (j//3)*(32+10)
         els += chip(f"am-{name}-c{j}",cx,cy,cw,32,verb,col)
         els[-1]["fx"] = fx["fx"]; els[-2]["fx"] = fx["fx"]
-els += footer(31)
-slides.append(slide(31, els, "This isn't Bartle's own model — it's a complementary one (sometimes called a social/action matrix) that trades player identity for concrete verbs, which is more directly actionable when they're staring at a blank Unity scene. Walk the axes: left-right is content vs. players (same as before); top-bottom is now correctly framed as measuring/judging what already exists (top: Explore browses and rates it, Compete measures you against other players) versus adding something new (bottom: Create adds content, Collaborate adds to the relationship). Ask each student to name 3 verbs their planned final project already supports, and 1 it's currently missing."))
+els += footer(32)
+slides.append(slide(32, els, "Amy Jo Kim's own model, introduced on the previous slide — not Bartle's. Her original quadrants are Competitors, Collaborators, Explorers and Expressers; this deck renames Expressers to \"Create\", but the verb list — Design, Build, Decorate, Customize, Express — is hers unchanged. Walk the axes: left-right is content vs. players; top-bottom is measuring/judging what already exists (top: Explore browses and rates it, Compete measures you against other players) versus adding something new (bottom: Create adds content, Collaborate adds to the relationship). Ask each student to name 3 verbs their planned final project already supports, and 1 it's currently missing."))
 
 # ============================================================ 19. DESIGNING FOR PLAYER TYPES
 els = [
@@ -1482,8 +1508,8 @@ els = [
     rect("dp3",96,426,1088,198,ACCENT_SOFT,radius=14,stroke="rgba(255,138,61,0.35)",strokeWidth=1,extra={"fx":{"enter":"fade-up","order":2}}),
     txt("dp3k",96+32,454,600,24,"FOR YOUR FINAL PROJECT",13,color=ACCENT,weight=700,family=MONOF,extra={"letterSpacing":1.5,"fx":{"enter":"fade-up","order":2}}),
     txt("dp3b",96+32,484,1000,120,"You don't need to serve all four. Pick the 1&ndash;2 player types your game is <i>for</i>, and let that choice drive your mechanics &mdash; that's design, not decoration.",18,color=TEXT,lh=1.55,extra={"fx":{"enter":"fade-up","order":2}}),
-] + footer(32)
-slides.append(slide(32, els, "This is the actionable takeaway of the whole Bartle section: a small student project can't and shouldn't try to serve all four types. Naming your target player type(s) up front is a legitimate design decision they can defend in their final presentation."))
+] + footer(33)
+slides.append(slide(33, els, "This is the actionable takeaway of the whole Bartle section: a small student project can't and shouldn't try to serve all four types. Naming your target player type(s) up front is a legitimate design decision they can defend in their final presentation."))
 
 # ============================================================ 20. RECAP
 els = [
@@ -1505,8 +1531,8 @@ els = [
     txt("rc3nt",112,531,66,66,"3",30,color=BG,weight=800,family=DISPLAY,align="center",valign="middle",extra={"fx":{"enter":"fade-up","order":2}}),
     txt("rc3t",216,530,900,32,"This is the language of the whole semester.",21,weight=700,family=DISPLAY,extra={"fx":{"enter":"fade-up","order":2}}),
     txt("rc3d",216,568,900,44,"MDA and Bartle aren't trivia &mdash; they're literally how your final project gets evaluated.",15.5,color=MUTED,lh=1.5,extra={"fx":{"enter":"fade-up","order":2}}),
-] + footer(33)
-slides.append(slide(33, els, "Read these three out loud slowly — this is the takeaway students should be able to repeat back a week from now, even if they've forgotten the vocabulary."))
+] + footer(34)
+slides.append(slide(34, els, "Read these three out loud slowly — this is the takeaway students should be able to repeat back a week from now, even if they've forgotten the vocabulary."))
 
 # ============================================================ 21. NEXT UP
 els = [
@@ -1525,8 +1551,8 @@ els = [
     txt("nx2d",656+32,346,460,110,"Version control for game projects, and scene / GameObject hierarchy &mdash; CLO-2 begins.",16.5,color=MUTED,lh=1.6,extra={"fx":{"enter":"fade-up","order":1}}),
     rect("nxread",96,510,1088,74,ACCENT_SOFT,radius=12,stroke="rgba(255,138,61,0.3)",strokeWidth=1,extra={"fx":{"enter":"fade-up","order":2}}),
     txt("nxreadt",96+28,533,1032,30,"Before then: skim the <b>Unity Essentials</b> pathway on Unity Learn &mdash; free, ~2 hours.",16.5,color=TEXT,extra={"fx":{"enter":"fade-up","order":2}}),
-] + footer(34)
-slides.append(slide(34, els, "Confirm the lab room/time if different from lecture. Remind them the reading is skimmable, not a deep study — the point is familiarity with the editor before they touch it hands-on today."))
+] + footer(35)
+slides.append(slide(35, els, "Confirm the lab room/time if different from lecture. Remind them the reading is skimmable, not a deep study — the point is familiarity with the editor before they touch it hands-on today."))
 
 # ============================================================ 22. THANK YOU
 els = [
@@ -1541,8 +1567,8 @@ els = [
 ] + orbit_motif("ty", 986, 360, 316, core=100, label="PLAY") + stars("ty", [
     (760, 150, 3, "rgba(255,255,255,0.40)", 24, 44),
     (1160, 560, 4, "rgba(85,214,194,0.45)", 30, 50),
-]) + footer(35)
-slides.append(slide(35, els, "Close on the discussion prompt — it's a soft assignment for next lecture that gets them practicing the vocabulary before Lecture 2 moves into Unity itself. Stay after for individual questions."))
+]) + footer(36)
+slides.append(slide(36, els, "Close on the discussion prompt — it's a soft assignment for next lecture that gets them practicing the vocabulary before Lecture 2 moves into Unity itself. Stay after for individual questions."))
 
 print(f"Total slides built: {len(slides)}")
 

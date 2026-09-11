@@ -89,6 +89,17 @@ the deck opens and closes on the same image.
 - **Richard Bartle got a real photo too**, the same treatment as the instructor
   photo — `asset:photo-bartle`, its own small JPEG data URI in `src/fonts/`,
   replacing the "RB" monogram placeholder mentioned below.
+- **The "action matrix" slide is credited to its actual author.** It's Amy Jo
+  Kim's *Social Action Matrix* — she built it because Bartle's player types
+  didn't always fit the casual/social games she was designing; this deck's
+  "Create" quadrant is her "Expressers" quadrant renamed, verb list unchanged.
+  A new "Who Is Amy Jo Kim?" slide (same bio-slide pattern as the Bartle one,
+  "AJK" monogram — no licensed photo was available) now sits right before it,
+  and the matrix slide itself was retitled from "From Motivation to Mechanic"
+  to "The Social Action Matrix" with a proper byline. This inserted a slide, so
+  everything from the old slide 31 onward renumbered by one (35 visible slides
+  -> 36); the dynamic `{{page}}/{{pages}}` footer tokens absorbed it without
+  any other changes needed.
 
 ## Things that did not work
 
