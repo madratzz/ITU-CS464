@@ -68,13 +68,62 @@ designed slide.
 **Cover, both section breaks and the closing slide** all gained the orbit motif, so
 the deck opens and closes on the same image.
 
+## Things that changed after the first pass
+
+- **The instructor slide got a real photo.** The "MRB" monogram avatar is now an
+  actual photo, embedded as a JPEG data URI (`asset:photo-instructor`) in the same
+  `src/fonts/` folder as the font assets — resized/compressed client-side to ~25KB
+  so it doesn't bloat the deck. The `bento-slides` skill's `link` field only
+  supports internal slide navigation, so external links aren't clickable in the
+  player either way.
+- **Social handles got a real icon treatment.** `social_badge()` draws a small
+  ring badge with a plain glyph ("X" / "in") in the deck's own accent colour —
+  legible as "this is the X/LinkedIn handle" without reproducing either
+  platform's actual logo artwork or brand colours (X's mark and LinkedIn's blue
+  "in" square are both protected — a generic deck-styled badge sidesteps that
+  while still doing the job). Used on the cover (small, next to a photo
+  thumbnail) and on the instructor slide (larger, under the photo).
+- **The instructor's photo and handles now also appear on the cover**, next to
+  the existing name/university credit line, reusing the same `photo-instructor`
+  asset so the file doesn't carry the image twice.
+- **Richard Bartle got a real photo too**, the same treatment as the instructor
+  photo — `asset:photo-bartle`, its own small JPEG data URI in `src/fonts/`,
+  replacing the "RB" monogram placeholder mentioned below.
+- **The "action matrix" slide is credited to its actual author.** It's Amy Jo
+  Kim's *Social Action Matrix* — she built it because Bartle's player types
+  didn't always fit the casual/social games she was designing. A new
+  "Who Is Amy Jo Kim?" slide (same bio-slide pattern as the Bartle one, "AJK"
+  monogram at first — a real photo was added afterward, see below) now sits
+  right before it, and the matrix slide itself was retitled from "From
+  Motivation to Mechanic" to "The Social Action Matrix" with a proper byline.
+  This inserted a slide, so everything from the old slide 31 onward renumbered
+  by one (35 visible slides -> 36); the dynamic `{{page}}/{{pages}}` footer
+  tokens absorbed it without any other changes needed.
+- **The matrix content itself was then corrected to match Kim's own diagram
+  exactly**, after the user supplied her original illustrations. Quadrant
+  names/positions (Compete top-left, Express top-right, Collaborate
+  bottom-left, Explore bottom-right — "Express", not the earlier "Create"),
+  the verb lists per quadrant, and the axis wording (ACTING/INTERACTING
+  vertically, PEOPLE/CONTENT horizontally — her own words, not an approximation)
+  all now match the source. This also fixed the Bartle-type tags: Kim's
+  vertical axis reuses Bartle's own ACTING/INTERACTING language, so with the
+  axes right the mapping is an exact 1:1 (Compete=Killers, Express=Achievers,
+  Collaborate=Socializers, Explore=Explorers) instead of the earlier
+  approximate wording. The chip grid went from 3 columns to 4 to fit
+  Explore's 8 verbs in the same card height as everyone else's 6-7.
+- **The Amy Jo Kim bio slide got a real photo.** Same treatment as the
+  instructor and Bartle photos: resized/compressed to a small JPEG data URI
+  (`asset:photo-amyjokim`, `src/fonts/photo-amyjokim-asset.json`), swapped in
+  for the "AJK" monogram ellipse+text, same 228px circle geometry and glow
+  ring as the Bartle photo so all three bio slides now match visually.
+
 ## Things that did not work
 
-- **A photograph of Richard Bartle could not be fetched.** Wikipedia file URLs are
-  cache-only through the available fetch tooling, and the University of Essex faculty
-  image was refused by the network egress policy. The slide uses an "RB" monogram in
-  the deck's own visual language instead. If a properly licensed photo turns up,
-  drop it in and swap the monogram.
+- **A photograph of Richard Bartle could not be fetched automatically.** Wikipedia
+  file URLs are cache-only through the available fetch tooling, and the University
+  of Essex faculty image was refused by the network egress policy. The slide used
+  an "RB" monogram in the deck's own visual language until a photo was supplied
+  directly and dropped in (see above) — the auto-fetch path itself is still closed.
 - **"Click anywhere to go back" as a full-canvas invisible rect.** See below.
 
 ## Technical findings

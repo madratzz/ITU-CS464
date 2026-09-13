@@ -167,6 +167,20 @@ def chip(id,x,y,w,h,label,col):
         txt(f"{id}t",x,y,w,h,label,12.5,color=col,weight=700,family=MONOF,align="center",valign="middle"),
     ]
 
+def social_badge(id,cx,cy,d,glyph,col,glyph_size=None,extra=None):
+    """A small ring badge with a short glyph (e.g. 'X' or 'in') — a neutral,
+    deck-styled stand-in for a platform icon rather than a reproduction of the
+    platform's own logo artwork/colours."""
+    r = d/2.0
+    gs = glyph_size or d*0.46
+    ring_e = ellipse(f"{id}bg",cx-r,cy-r,d,d,"rgba(0,0,0,0)",stroke=col,strokeWidth=1.5)
+    txt_e = txt(f"{id}g",cx-r,cy-r,d,d,glyph,gs,color=col,weight=800,family=DISPLAY,
+                align="center",valign="middle")
+    if extra:
+        ring_e.update(extra)
+        txt_e.update(extra)
+    return [ring_e, txt_e]
+
 def kicker(id,x,y,label,color=ACCENT,size=15,w=800):
     upper = label.upper().replace("&MIDDOT;","&middot;").replace("&AMP;","&amp;").replace("&NDASH;","&ndash;").replace("&MDASH;","&mdash;")
     return txt(id,x,y,w,24,upper,size,color=color,weight=700,family=MONOF,
@@ -189,7 +203,7 @@ def footer(n, total=None, label="CS464 · GAME DEVELOPMENT"):
             align="right", extra={"letterSpacing":1.5}),
     ]
 
-TOTAL = 35
+TOTAL = 36
 
 # ============================================================ 1. COVER
 els = [
@@ -202,9 +216,16 @@ els = [
         extra={"letterSpacing":-2}),
     txt("t1b", MX, 372, 1090, 90, "The Anatomy of Play", 34, color=MUTED, weight=400, family=BODYF),
     rect("cf3", MX, 500, 340, 2, BORDER2),
-    txt("instr1", MX, 528, 700, 34, "Muhammad Raza Butt &nbsp;&middot;&nbsp; Information Technology University", 17,
+    {"id":"cvph","type":"image","x":128-32,"y":559-32,"w":64,"h":64,"rotation":0,"opacity":1,
+     "src":"asset:photo-instructor","fit":"cover","radius":32},
+    ring("cvphborder",128,559,64,"rgba(255,138,61,0.35)",strokeWidth=1.5,dashed=False),
+    txt("instr1", 180, 528, 600, 34, "Muhammad Raza Butt &nbsp;&middot;&nbsp; Information Technology University", 17,
         color=MUTED, family=BODYF),
-    txt("instr2", MX, 560, 700, 30, "hello@madratzz.net", 15, color=FAINT, family=MONOF),
+    txt("instr2", 180, 560, 600, 30, "hello@madratzz.net &nbsp;&middot;&nbsp; muhammadraza.vf@itu.edu.pk", 13.5, color=FAINT, family=MONOF),
+] + social_badge("cvsocx", 189, 602, 18, "X", ACCENT) + [
+    txt("cvsoc1t", 204, 592, 100, 20, "@imadratzz", 12, color=MUTED, family=MONOF),
+] + social_badge("cvsocin", 320, 602, 18, "in", ACCENT) + [
+    txt("cvsoc2t", 335, 592, 110, 20, "/madratzz", 12, color=MUTED, family=MONOF),
 ] + orbit_motif("cv", 986, 286, 300, core=92) + stars("cv", [
     (742, 128, 3, "rgba(255,255,255,0.45)", 26, 40),
     (1148, 470, 4, "rgba(255,138,61,0.55)", 34, 52),
@@ -259,11 +280,18 @@ els = [
     kicker("k3",MX,72,"Who's teaching this"),
     txt("t3",MX,104,1000,70,"Your Instructor",56,weight=800,family=DISPLAY),
     ring("phring",246,382,300,"rgba(255,138,61,0.40)",strokeWidth=1.5,march=(30,10)),
-    ellipse("ph",246-132,382-132,264,264,SURFACE2,gradient=grad(35,"#242B36","#171C25"),
-            stroke="rgba(255,138,61,0.30)",strokeWidth=1.5,shadow=glow(ACCENT_GLOW,42),
-            extra={"fx":{"enter":"fade-up","order":0}}),
-    txt("phi",246-132,382-132,264,264,"MRB",62,color=ACCENT,weight=800,family=DISPLAY,align="center",
-        valign="middle",extra={"fx":{"enter":"fade-up","order":0}}),
+    {"id":"ph","type":"image","x":246-132,"y":382-132,"w":264,"h":264,"rotation":0,"opacity":1,
+     "src":"asset:photo-instructor","fit":"cover","radius":132,
+     "shadow":glow(ACCENT_GLOW,42),"fx":{"enter":"fade-up","order":0}},
+    ring("phborder",246,382,264,"rgba(255,138,61,0.35)",strokeWidth=1.5,dashed=False,
+         extra={"fx":{"enter":"fade-up","order":0}}),
+    rect("phsocdiv",114,544,264,1,BORDER,extra={"fx":{"enter":"fade-up","order":0}}),
+] + social_badge("phsocx",164,566,26,"X",ACCENT,extra={"fx":{"enter":"fade-up","order":0}}) + [
+    txt("phsoc1",187,556,154,20,"@imadratzz",13,color=MUTED,family=MONOF,
+        extra={"letterSpacing":0.5,"fx":{"enter":"fade-up","order":0}}),
+] + social_badge("phsocin",164,602,26,"in",ACCENT,extra={"fx":{"enter":"fade-up","order":0}}) + [
+    txt("phsoc2",187,592,154,20,"/madratzz",13,color=MUTED,family=MONOF,
+        extra={"letterSpacing":0.5,"fx":{"enter":"fade-up","order":0}}),
     txt("iname",456,228,700,50,"Muhammad Raza Butt",38,weight=800,family=DISPLAY,extra={"fx":{"enter":"fade-up","order":1}}),
     txt("irole",456,280,700,26,"Technical Head &mdash; Games Dept., 9D Technologies (Lahore)",18,
         color=ACCENT,weight=700,extra={"fx":{"enter":"fade-up","order":1}}),
@@ -1099,10 +1127,10 @@ els = [
     kicker("k25b",MX,72,"The researcher behind the taxonomy", color=ACCENT2),
     txt("t25b",MX,104,1100,64,"Who Is Richard Bartle?",50,weight=800,family=DISPLAY),
     ring("rbphring",226,344,260,"rgba(85,214,194,0.40)",strokeWidth=1.5,march=(28,10)),
-    ellipse("rbph",226-114,344-114,228,228,SURFACE2,gradient=grad(35,"#242B36","#171C25"),
-            stroke="rgba(85,214,194,0.30)",strokeWidth=1.5,shadow=glow(ACCENT2_GLOW,40)),
-    txt("rbphi",226-114,344-114,228,228,"RB",54,color=ACCENT2,weight=800,family=DISPLAY,
-        align="center",valign="middle"),
+    {"id":"rbph","type":"image","x":226-114,"y":344-114,"w":228,"h":228,"rotation":0,"opacity":1,
+     "src":"asset:photo-bartle","fit":"cover","radius":114,
+     "shadow":glow(ACCENT2_GLOW,40)},
+    ring("rbphborder",226,344,228,"rgba(85,214,194,0.35)",strokeWidth=1.5,dashed=False),
     txt("rbname",396,222,700,44,"Richard A. Bartle",32,weight=800,family=DISPLAY),
     txt("rbrole",396,270,700,28,"Emeritus Professor &middot; University of Essex",17,color=ACCENT2,weight=600),
     rect("rbdiv",396,308,700,1,BORDER),
@@ -1378,46 +1406,97 @@ els = [
 ] + footer(30)
 slides.append(slide(30, els, "Use this to bridge from theory to their own project pitch: ask each table/group to name the genre their planned final project is closest to, and predict which player type(s) it's implicitly designed for. If it doesn't match what they intended, that's useful information before they build."))
 
+# ============================================================ 22b. WHO IS AMY JO KIM? (credits the Social Action Matrix's real author)
+els = [
+    rect("bg30b",0,0,W,H,BG),
+    kicker("k30b",MX,72,"The designer behind the framework", color=ACCENT2),
+    txt("t30b",MX,104,1100,64,"Who Is Amy Jo Kim?",50,weight=800,family=DISPLAY),
+    ring("ajkphring",226,344,260,"rgba(85,214,194,0.40)",strokeWidth=1.5,march=(28,10)),
+    {"id":"ajkph","type":"image","x":226-114,"y":344-114,"w":228,"h":228,"rotation":0,"opacity":1,
+     "src":"asset:photo-amyjokim","fit":"cover","radius":114,
+     "shadow":glow(ACCENT2_GLOW,40)},
+    ring("ajkphborder",226,344,228,"rgba(85,214,194,0.35)",strokeWidth=1.5,dashed=False),
+    txt("ajkname",396,222,700,44,"Amy Jo Kim",32,weight=800,family=DISPLAY),
+    txt("ajkrole",396,270,700,28,"Game Designer &amp; Founder, Game Thinking",17,color=ACCENT2,weight=600),
+    rect("ajkdiv",396,308,700,1,BORDER),
+    txt("ajktl",396,330,720,230,
+        "<b>PhD</b> &mdash; Behavioral Neuroscience, University of Washington; BA in Experimental Psychology, UC San Diego.<br>"
+        "<b>2000</b> &mdash; publishes <i>Community Building on the Web</i>, on designing for online communities.<br>"
+        "<b>2014</b> &mdash; introduces the Social Action Matrix &mdash; the framework we cover next.<br>"
+        "<b>2018</b> &mdash; publishes <i>Game Thinking</i>, her methodology for validating and shipping high-retention products.<br>"
+        "<b>Design portfolio</b> &mdash; The Sims, Rock Band, Ultima Online, eBay, Netflix, Covet Fashion, Replika.",
+        15.5,color=MUTED,lh=1.65),
+    txt("ajknote",MX,576,1088,30,
+        "<i>Fortune named her one of the Top 10 most influential women in games; she's taught game design at USC and Stanford.</i>",
+        14,color=FAINT),
+] + footer(31)
+slides.append(slide(31, els, "One minute — the point is that the verb framework on the next slide isn't an invented teaching device, it's a real, named framework from a working game/product designer, built specifically because Bartle's player types didn't always fit the casual and social games she was designing."))
+
 # ============================================================ 23. THE ACTION MATRIX (verbs, complementary to Bartle)
+# Amy Jo Kim's actual Social Action Matrix: quadrant names, verb lists and axis
+# wording (ACTING/INTERACTING, PEOPLE/CONTENT) all matched to her own diagram
+# rather than an approximation. Her vertical axis reuses Bartle's own
+# ACTING/INTERACTING vocabulary — she extended his PLAYERS/WORLD split into
+# PEOPLE/CONTENT — so with the axes right, the Bartle-type mapping becomes an
+# exact 1:1: Compete=Killers, Express=Achievers, Collaborate=Socializers,
+# Explore=Explorers. Colours follow that same mapping (the deck's own accent
+# palette already assigns those four colours to those four Bartle types).
 action_quads = [
-    ("Explore","Browse &amp; judge what's already there","closest to Bartle's Explorers",
-     ["View","Collect","Rate","Vote","Curate","Review"],ACCENT3,ACCENT3_SOFT,(96,222)),
-    ("Compete","Act on other players, directly","closest to Bartle's Killers &amp; Achievers",
-     ["Win","Challenge","Compare","Showoff","Taunt"],MIDT,"rgba(209,78,128,0.14)",(656,222)),
-    ("Create","Make and shape your own content","a builder's flavor of Explorer",
-     ["Purchase","Design","Build","Decorate","Customize","Express"],ACCENT,ACCENT_SOFT,(96,427)),
+    ("Compete","Act on other players, directly","closest to Bartle's Killers",
+     ["Win","Fight","Challenge","Steal","Showoff","Compare","Taunt"],ACCENT4,ACCENT4_SOFT),
+    ("Express","Make and shape your own content","closest to Bartle's Achievers",
+     ["Build","Create","Design","Purchase","Decorate","Customize","Choose"],ACCENT,ACCENT_SOFT),
     ("Collaborate","Interact with players, not against them","closest to Bartle's Socializers",
-     ["Comment","Like","Greet","Help","Share","Contribute"],ASSIGN,ACCENT2_SOFT,(656,427)),
+     ["Comment","Like","Greet","Help","Share","Contribute"],ACCENT2,ACCENT2_SOFT),
+    ("Explore","Browse &amp; judge what's already there","closest to Bartle's Explorers",
+     ["Collect","Rate","View","Find","Vote","Search","Curate","Review"],ACCENT3,ACCENT3_SOFT),
 ]
+AM_X0, AM_Y0 = 200, 236          # grid top-left (col 1 sits at x=656, same as before)
+AM_CW, AM_CH = 424, 185          # cell size
+AM_COLGAP, AM_ROWGAP = 32, 20
+AM_X1 = AM_X0 + AM_CW + AM_COLGAP                 # 656
+AM_CX = (AM_X0 + AM_X1 + AM_CW) / 2.0             # vertical divider x — dead centre of the canvas
+AM_CY = AM_Y0 + AM_CH + AM_ROWGAP / 2.0           # horizontal divider y
+# top-left, top-right, bottom-left, bottom-right — matches Kim's own layout
+AM_POS = [(AM_X0, AM_Y0), (AM_X1, AM_Y0), (AM_X0, AM_Y0 + AM_CH + AM_ROWGAP), (AM_X1, AM_Y0 + AM_CH + AM_ROWGAP)]
+
 els = [
     rect("bg23m",0,0,W,H,BG),
-    kicker("k23m",MX,72,"One more lens on motivation", color=ACCENT2),
-    txt("t23m",MX,104,1100,64,"From Motivation to Mechanic",46,weight=800,family=DISPLAY),
-    txt("t23mb",MX,168,1080,44,
-        "A sibling framework: instead of naming the player, it names the <b>verb</b> your game gives them. "
-        "Left&ndash;right is about content vs. about other players; top&ndash;bottom is acting alone vs. interacting with someone.",
-        15,color=MUTED,lh=1.45),
+    kicker("k23m",MX,72,"Amy Jo Kim's framework", color=ACCENT2),
+    txt("t23m",MX,104,1100,64,"The Social Action Matrix",46,weight=800,family=DISPLAY),
+    txt("t23mb",MX,178,1080,22,
+        "Instead of naming the player, it names the <b>verb</b> your game gives them.",
+        15,color=MUTED),
+    # crossing axes, drawn the same way as the Bartle matrix — and using Bartle's
+    # own ACTING/INTERACTING vocabulary, since Kim's diagram does too
+    rect("am-axv",AM_CX-1,AM_Y0-6,2,AM_CH*2+AM_ROWGAP+12,BORDER2,extra={"fx":{"enter":"fade","order":0}}),
+    rect("am-axh",AM_X0-6,AM_CY-1,(AM_X1+AM_CW)-AM_X0+12,2,BORDER2,extra={"fx":{"enter":"fade","order":0}}),
+    txt("am-axt",AM_CX-200,AM_Y0-24,400,16,"ACTING",10.5,color=TEXT,weight=700,family=MONOF,
+        align="center",extra={"letterSpacing":3,"fx":{"enter":"fade","order":0}}),
+    txt("am-axb",AM_CX-200,AM_Y0+AM_CH*2+AM_ROWGAP+8,400,16,"INTERACTING",10.5,color=TEXT,weight=700,family=MONOF,
+        align="center",extra={"letterSpacing":3,"fx":{"enter":"fade","order":0}}),
+    txt("am-axl",MX,AM_CY-9,AM_X0-MX-16,20,"PEOPLE",11,color=TEXT,weight=700,family=MONOF,
+        align="right",extra={"letterSpacing":3,"fx":{"enter":"fade","order":0}}),
+    txt("am-axr",AM_X1+AM_CW+16,AM_CY-9,1184-(AM_X1+AM_CW+16),20,"CONTENT",11,color=TEXT,weight=700,family=MONOF,
+        extra={"letterSpacing":3,"fx":{"enter":"fade","order":0}}),
 ]
-for qi,(name,desc,tag,verbs,col,soft,(x,y)) in enumerate(action_quads):
-    fx = {"fx":{"enter":"fade-up","order":qi}}
+for qi,(name,desc,tag,verbs,col,soft) in enumerate(action_quads):
+    x,y = AM_POS[qi]
+    fx = {"fx":{"enter":"fade-up","order":qi+1}}
     els += [
-        rect(f"am-{name}",x,y,528,185,soft,radius=14,stroke=col,strokeWidth=1.5,extra=fx),
-        txt(f"am-{name}t",x+28,y+16,472,30,name,21,weight=800,family=DISPLAY,color=TEXT,extra=fx),
-        txt(f"am-{name}d",x+28,y+48,472,20,desc,13,color=MUTED,extra=fx),
-        txt(f"am-{name}tag",x+28,y+70,472,16,tag.upper(),10.5,color=col,weight=700,family=MONOF,extra={"letterSpacing":1,**fx}),
+        rect(f"am-{name}",x,y,AM_CW,AM_CH,soft,radius=14,stroke=col,strokeWidth=1.5,extra=fx),
+        txt(f"am-{name}t",x+26,y+16,AM_CW-52,30,name,20,weight=800,family=DISPLAY,color=TEXT,extra=fx),
+        txt(f"am-{name}d",x+26,y+48,AM_CW-52,20,desc,12.5,color=MUTED,extra=fx),
+        txt(f"am-{name}tag",x+26,y+70,AM_CW-52,16,tag.upper(),10,color=col,weight=700,family=MONOF,extra={"letterSpacing":1,**fx}),
     ]
-    colx = [x+28, x+28+148+14, x+28+2*(148+14)]
+    cw, cg, ch, rg = 86, 8, 30, 8
+    colx = [x+26+i*(cw+cg) for i in range(4)]
     for j,verb in enumerate(verbs):
-        cx = colx[j%3]; cy = y+92+ (j//3)*(32+10)
-        els += chip(f"am-{name}-c{j}",cx,cy,148,32,verb,col)
+        cx = colx[j%4]; cy = y+92+ (j//4)*(ch+rg)
+        els += chip(f"am-{name}-c{j}",cx,cy,cw,ch,verb,col)
         els[-1]["fx"] = fx["fx"]; els[-2]["fx"] = fx["fx"]
-els += [
-    txt("t23mnote",MX,636,1088,20,
-        "For your final project: list the verbs your game actually offers &mdash; a thin verb list is a thin game.",
-        13,color=FAINT),
-]
-els += footer(31)
-slides.append(slide(31, els, "This isn't Bartle's own model — it's a complementary one (sometimes called a social/action matrix) that trades player identity for concrete verbs, which is more directly actionable when they're staring at a blank Unity scene. Ask each student to name 3 verbs their planned final project already supports, and 1 it's currently missing."))
+els += footer(32)
+slides.append(slide(32, els, "Amy Jo Kim's own model, introduced on the previous slide — not Bartle's, but it borrows his own axis vocabulary directly: ACTING vs. INTERACTING, same as the Bartle matrix, extended to PEOPLE vs. CONTENT instead of PLAYERS vs. WORLD. That makes the Bartle-type mapping exact this time: Compete (acting on people) = Killers, Express (acting on content) = Achievers, Collaborate (interacting with people) = Socializers, Explore (interacting with content) = Explorers. Ask each student to name 3 verbs their planned final project already supports, and 1 it's currently missing."))
 
 # ============================================================ 19. DESIGNING FOR PLAYER TYPES
 els = [
@@ -1433,8 +1512,8 @@ els = [
     rect("dp3",96,426,1088,198,ACCENT_SOFT,radius=14,stroke="rgba(255,138,61,0.35)",strokeWidth=1,extra={"fx":{"enter":"fade-up","order":2}}),
     txt("dp3k",96+32,454,600,24,"FOR YOUR FINAL PROJECT",13,color=ACCENT,weight=700,family=MONOF,extra={"letterSpacing":1.5,"fx":{"enter":"fade-up","order":2}}),
     txt("dp3b",96+32,484,1000,120,"You don't need to serve all four. Pick the 1&ndash;2 player types your game is <i>for</i>, and let that choice drive your mechanics &mdash; that's design, not decoration.",18,color=TEXT,lh=1.55,extra={"fx":{"enter":"fade-up","order":2}}),
-] + footer(32)
-slides.append(slide(32, els, "This is the actionable takeaway of the whole Bartle section: a small student project can't and shouldn't try to serve all four types. Naming your target player type(s) up front is a legitimate design decision they can defend in their final presentation."))
+] + footer(33)
+slides.append(slide(33, els, "This is the actionable takeaway of the whole Bartle section: a small student project can't and shouldn't try to serve all four types. Naming your target player type(s) up front is a legitimate design decision they can defend in their final presentation."))
 
 # ============================================================ 20. RECAP
 els = [
@@ -1456,8 +1535,8 @@ els = [
     txt("rc3nt",112,531,66,66,"3",30,color=BG,weight=800,family=DISPLAY,align="center",valign="middle",extra={"fx":{"enter":"fade-up","order":2}}),
     txt("rc3t",216,530,900,32,"This is the language of the whole semester.",21,weight=700,family=DISPLAY,extra={"fx":{"enter":"fade-up","order":2}}),
     txt("rc3d",216,568,900,44,"MDA and Bartle aren't trivia &mdash; they're literally how your final project gets evaluated.",15.5,color=MUTED,lh=1.5,extra={"fx":{"enter":"fade-up","order":2}}),
-] + footer(33)
-slides.append(slide(33, els, "Read these three out loud slowly — this is the takeaway students should be able to repeat back a week from now, even if they've forgotten the vocabulary."))
+] + footer(34)
+slides.append(slide(34, els, "Read these three out loud slowly — this is the takeaway students should be able to repeat back a week from now, even if they've forgotten the vocabulary."))
 
 # ============================================================ 21. NEXT UP
 els = [
@@ -1476,8 +1555,8 @@ els = [
     txt("nx2d",656+32,346,460,110,"Version control for game projects, and scene / GameObject hierarchy &mdash; CLO-2 begins.",16.5,color=MUTED,lh=1.6,extra={"fx":{"enter":"fade-up","order":1}}),
     rect("nxread",96,510,1088,74,ACCENT_SOFT,radius=12,stroke="rgba(255,138,61,0.3)",strokeWidth=1,extra={"fx":{"enter":"fade-up","order":2}}),
     txt("nxreadt",96+28,533,1032,30,"Before then: skim the <b>Unity Essentials</b> pathway on Unity Learn &mdash; free, ~2 hours.",16.5,color=TEXT,extra={"fx":{"enter":"fade-up","order":2}}),
-] + footer(34)
-slides.append(slide(34, els, "Confirm the lab room/time if different from lecture. Remind them the reading is skimmable, not a deep study — the point is familiarity with the editor before they touch it hands-on today."))
+] + footer(35)
+slides.append(slide(35, els, "Confirm the lab room/time if different from lecture. Remind them the reading is skimmable, not a deep study — the point is familiarity with the editor before they touch it hands-on today."))
 
 # ============================================================ 22. THANK YOU
 els = [
@@ -1492,13 +1571,17 @@ els = [
 ] + orbit_motif("ty", 986, 360, 316, core=100, label="PLAY") + stars("ty", [
     (760, 150, 3, "rgba(255,255,255,0.40)", 24, 44),
     (1160, 560, 4, "rgba(85,214,194,0.45)", 30, 50),
-]) + footer(35)
-slides.append(slide(35, els, "Close on the discussion prompt — it's a soft assignment for next lecture that gets them practicing the vocabulary before Lecture 2 moves into Unity itself. Stay after for individual questions."))
+]) + footer(36)
+slides.append(slide(36, els, "Close on the discussion prompt — it's a soft assignment for next lecture that gets them practicing the vocabulary before Lecture 2 moves into Unity itself. Stay after for individual questions."))
 
 print(f"Total slides built: {len(slides)}")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = json.load(open(os.path.join(HERE, "fonts", "fonts.json"), encoding="utf-8"))
+PHOTO = json.load(open(os.path.join(HERE, "fonts", "photo-asset.json"), encoding="utf-8"))
+PHOTO_BARTLE = json.load(open(os.path.join(HERE, "fonts", "photo-bartle-asset.json"), encoding="utf-8"))
+PHOTO_AJK = json.load(open(os.path.join(HERE, "fonts", "photo-amyjokim-asset.json"), encoding="utf-8"))
+ASSETS = {**FONTS, **PHOTO, **PHOTO_BARTLE, **PHOTO_AJK}
 
 doc = {
     "format": "bento/slides",
@@ -1522,7 +1605,7 @@ doc = {
         {"family": "Space Mono", "asset": "font-spacemono", "weight": "400"},
         {"family": "Space Mono", "asset": "font-spacemono-bold", "weight": "700"},
     ],
-    "assets": FONTS,
+    "assets": ASSETS,
     "present": {"progress": True},
     "slides": slides
 }
