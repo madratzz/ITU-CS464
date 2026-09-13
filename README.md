@@ -22,6 +22,15 @@ templates/    reference Bento decks used as design source material
 | # | Title | Deck | Covers |
 |---|-------|------|--------|
 | 01 | The Anatomy of Play | [`lectures/01-anatomy-of-play/`](lectures/01-anatomy-of-play/) | Course logistics, the 15-week arc, grading, what a game is, the magic circle, rules of play, finite vs infinite games, MDA, the 8 kinds of fun, Bartle's taxonomy |
+| 02 | Inside Unity | [`lectures/02-inside-unity/`](lectures/02-inside-unity/) | Git for Unity, actual editor screenshots, components, transforms and animated parent/child examples |
+
+## Interactive demos
+
+Open [`Interactive Demos/index.html`](Interactive%20Demos/index.html) for seventeen
+offline Three.js labs covering vector maths, rotations, collisions, steering,
+jumping, cameras, springs, combat feel, curves, IK, audio, and game juice. Each numbered
+subfolder can be copied and run independently. See the
+[teaching guide](Interactive%20Demos/README.md) for controls and experiments.
 
 ## Opening a deck
 
