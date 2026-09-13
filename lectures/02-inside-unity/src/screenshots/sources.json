@@ -1,0 +1,112 @@
+[
+  {
+    "id": "editor",
+    "file": "editor.png",
+    "image_url": "https://docs.unity3d.com/6000.0/Documentation/uploads/Main/project-window-context.png",
+    "source_url": "https://docs.unity3d.com/6000.0/Documentation/Manual/ProjectView.html",
+    "credit": "Unity Technologies, Unity 6.0 Manual",
+    "retrieved": "2026-09-13",
+    "sha256": "98000ab67269266a8946aae65f87600bc5e90901524b1f9b29d9f2d26ad3a7c3",
+    "width": 783,
+    "height": 501
+  },
+  {
+    "id": "game",
+    "file": "game.png",
+    "image_url": "https://docs.unity3d.com/6000.0/Documentation/uploads/Main/game-view-window.png",
+    "source_url": "https://docs.unity3d.com/6000.0/Documentation/Manual/GameView.html",
+    "credit": "Unity Technologies, Unity 6.0 Manual",
+    "retrieved": "2026-09-13",
+    "sha256": "e5ec801a38a8103f53ccc55e422aeb613476975c460c16f06bf95ae041ca62ba",
+    "width": 849,
+    "height": 440
+  },
+  {
+    "id": "project",
+    "file": "project.png",
+    "image_url": "https://docs.unity3d.com/6000.0/Documentation/uploads/Main/project-window-wide-layout.png",
+    "source_url": "https://docs.unity3d.com/6000.0/Documentation/Manual/ProjectView.html",
+    "credit": "Unity Technologies, Unity 6.0 Manual",
+    "retrieved": "2026-09-13",
+    "sha256": "60f66a387ae74701caaab141b5d068e35a767b530fafeef52d19bd9c7c757e34",
+    "width": 700,
+    "height": 171
+  },
+  {
+    "id": "console",
+    "file": "console.png",
+    "image_url": "https://docs.unity3d.com/6000.0/Documentation/uploads/Main/Console.png",
+    "source_url": "https://docs.unity3d.com/6000.0/Documentation/Manual/Console.html",
+    "credit": "Unity Technologies, Unity 6.0 Manual",
+    "retrieved": "2026-09-13",
+    "sha256": "13dbe8744d41be610175a789fb7f88c6b701aaf59b18ba1b315c71b773fb79cf",
+    "width": 850,
+    "height": 357
+  },
+  {
+    "id": "transform",
+    "file": "transform.png",
+    "image_url": "https://docs.unity3d.com/6000.0/Documentation/uploads/Main/TransformExample4.png",
+    "source_url": "https://docs.unity3d.com/6000.0/Documentation/Manual/class-Transform.html",
+    "credit": "Unity Technologies, Unity 6.0 Manual",
+    "retrieved": "2026-09-13",
+    "sha256": "bfd036bfdedb9200ab6d9d0ab4654a407a087984d7e30d1eb8f46b8cdad66e36",
+    "width": 500,
+    "height": 165
+  },
+  {
+    "id": "gizmo",
+    "file": "gizmo.png",
+    "image_url": "https://docs.unity3d.com/6000.0/Documentation/uploads/Main/TransformExample2.png",
+    "source_url": "https://docs.unity3d.com/6000.0/Documentation/Manual/class-Transform.html",
+    "credit": "Unity Technologies, Unity 6.0 Manual",
+    "retrieved": "2026-09-13",
+    "sha256": "e3c7f3efc7165a98ff5846d2ca4cacc305eaa77960a26b54a30ebafe6f2021a5",
+    "width": 500,
+    "height": 411
+  },
+  {
+    "id": "parenting",
+    "file": "parenting.png",
+    "image_url": "https://docs.unity3d.com/6000.0/Documentation/uploads/Main/ParentingExample.png",
+    "source_url": "https://docs.unity3d.com/6000.0/Documentation/Manual/class-Transform.html",
+    "credit": "Unity Technologies, Unity 6.0 Manual",
+    "retrieved": "2026-09-13",
+    "sha256": "a8e024f1599c9336af12c5ade09c19e553da2c02e7f48f0a6ad704cab7a54a32",
+    "width": 300,
+    "height": 438
+  },
+  {
+    "id": "hierarchy",
+    "file": "hierarchy.png",
+    "image_url": "https://docs.unity3d.com/6000.0/Documentation/uploads/Main/parenting-in-hierarchy-window.png",
+    "source_url": "https://docs.unity3d.com/6000.0/Documentation/Manual/Hierarchy.html",
+    "credit": "Unity Technologies, Unity 6.0 Manual",
+    "retrieved": "2026-09-13",
+    "sha256": "83fd3f57816ce7b345b366ec71d24c5f2d2a8420e75aaa6fde5edde39043e7a4",
+    "width": 360,
+    "height": 403
+  },
+  {
+    "id": "toolbar",
+    "file": "toolbar.png",
+    "image_url": "https://docs.unity3d.com/6000.0/Documentation/uploads/Main/ToolbarCallout.png",
+    "source_url": "https://docs.unity3d.com/6000.0/Documentation/Manual/Toolbar.html",
+    "credit": "Unity Technologies, Unity 6.0 Manual",
+    "retrieved": "2026-09-13",
+    "sha256": "5b73ac712c2febc02465d3662d0845c1bf889d9d58ed0fce2eb246f9e5732467",
+    "width": 1225,
+    "height": 556
+  },
+  {
+    "id": "play",
+    "file": "play.png",
+    "image_url": "https://docs.unity3d.com/6000.0/Documentation/uploads/Main/Editor-PlayButtons.png",
+    "source_url": "https://docs.unity3d.com/6000.0/Documentation/Manual/GameView.html",
+    "credit": "Unity Technologies, Unity 6.0 Manual",
+    "retrieved": "2026-09-13",
+    "sha256": "e8f2aa8c636a329d132165d62a2b2a37fbdde4898c1a081b5961a3fbb63e9a06",
+    "width": 87,
+    "height": 16
+  }
+]

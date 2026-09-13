@@ -1,110 +1,101 @@
 # Lecture 02 — Inside Unity
 
-41 slides. Version control for game projects comes first this term, then the
-Unity Editor itself, then the Scene/GameObject mental model — CLO-2, Bloom L2
-(Understand). The Unity Environment Tour happens inside this lecture (Part 2)
-rather than in a separate lab.
+41 main slides, with 13 optional animation states. Covers version control,
+the Unity Editor, and Scene/GameObject hierarchy (CLO-2).
 
-**Deck:** [`CS464-Lecture-02-Inside-Unity.bento.html`](CS464-Lecture-02-Inside-Unity.bento.html)
-— double-click to open. Every slide has speaker notes (`S` in present mode).
+**[Open the deck](CS464-Lecture-02-Inside-Unity.bento.html).** All screenshots and
+fonts are embedded, so presentation works offline. Use the on-slide controls
+in presentation mode to run the examples. Arrow keys continue the main lecture;
+they skip optional states. Press `S` for speaker notes.
 
-## What it covers
+## Teaching animations
+
+| Slide | Control | What students should notice |
+|---|---|---|
+| 9 | Stage this version → Edit again → Commit and reveal | Working content changes to 8, but the staged value stays 6 and the commit records 6. |
+| 10–12 | Advance the main slides | The same workflow highlight morphs from editing to committing to syncing. |
+| 25 | Next panel / Replay tour | A highlight moves across the real Hierarchy, Inspector, Scene and Project panels. |
+| 27 | Show Inspector / Replay selection | The highlight connects a scene selection with the object's components. |
+| 28 | Open Console example / Back to Project | Large screenshots distinguish browsing assets from investigating diagnostics. |
+| 30 | Enter Play + change X → Stop and reveal | The illustrative scene-object X value changes 0 → 3 → 0. Asset changes may persist. |
+| 34 | Next property / Replay properties | The highlight walks through Position, Rotation and Scale in a real Inspector screenshot. |
+| 35 | Move parent +3 / Reset positions | Parent and child move together. Child local X stays 1 while world X changes 3 → 6. |
+
+Pause before revealing the result on slides 9, 30 and 35 and ask students to
+predict it. Screenshot pixels remain unchanged; numerical teaching examples and
+highlights are separate editable slide elements. Repeated editor images let
+students follow the same workspace across related concepts.
+
+## Ambient animation
+
+Slides **1, 5, 24, 31 and 41** have faint drifting particles, a soft breathing
+accent glow, and a beveled 3D Unity logo that separates into three sections,
+then eases back together inside a slowly moving dashed ring. A small settling
+pulse and two expanding, fading ripples emphasize the completed assembly.
+The pieces return with a slight stagger, followed by a quiet hold. The model extrudes the original logo silhouette, with
+a satin-silver material and soft studio lighting. Its transparent animated WebP
+loops every 12 seconds (720 frames at 60 fps). Ring loops take 24 seconds;
+particle loops take 28–53 seconds.
+
+Content slides use just two low-opacity particles in the outer margins. These
+effects stay clear of the screenshots and teaching content. Optional teaching
+states share the same background element ids to preserve continuity. The logo animation is embedded once and reused by all five slides. It needs no
+video controls or autoplay permission; the remaining effects use the embedded
+Bento runtime. No internet connection is needed.
+
+The editable Blender scene, rendered animation, and reproducible source scripts
+are in [`src/logo-3d/`](src/logo-3d/).
+
+## Content map
 
 | Slides | Section |
-|--------|---------|
-| 1–4 | Cover, agenda, a 60-second recap of Lecture 01, today's CLO-2 outcomes |
-| 5 | Section break — Version Control for Game Projects |
-| 6–9 | The problem it solves, what version control is, why git specifically, git's three trees |
-| 10–12 | The everyday loop — Edit & Stage, Commit, Sync — revealed as a walking chain |
-| 13 | Remotes & the GitHub workflow — origin, clone, push/pull, made explicit |
-| 14–15 | Branching, and merge conflicts (what one looks like, how to resolve it) |
-| 16 | Pull requests & code review — push branch, open PR, review, merge |
-| 17–21 | Why Unity projects are different, .gitignore, the .meta gotcha, Git LFS, common pitfalls & recovery |
-| 22–23 | Workflow checklist, Version Control recap |
-| 24 | Section break — Unity Editor Overview |
-| 25–30 | The editor at a glance, Scene View vs Game View, Hierarchy & Inspector, Project window & Console, the toolbar & transform tools, Play Mode's one gotcha |
-| 31 | Section break — Scene & GameObject Hierarchy |
-| 32–37 | What is a Scene, GameObjects & Components, the Transform, parent-child hierarchy, organizing a scene, scenes at scale |
-| 38 | Bringing it together — the worked example tying git and hierarchy into one commit |
-| 39–41 | Key takeaways, next up, questions |
+|---|---|
+| 1–4 | Introduction, recap and the course outline's CLO-2 |
+| 5–23 | Git model, workflow, remotes, branches, review and Unity project files |
+| 24–30 | Actual Unity Editor screenshots and guided examples |
+| 31–37 | Scenes, components, transforms, parenting and organization |
+| 38–41 | Worked commit, takeaways, upcoming topics and questions |
 
-## Slides worth knowing about before you present
+The upcoming topics follow the course outline's sequence: components, lights,
+materials and prefabs before C# scripting. No unconfirmed Lecture 03 date or
+scope is asserted.
 
-**The order** is deliberate: version control (Part 1) comes before the Unity
-Editor Overview (Part 2) this term, so students have the git vocabulary in
-hand before the editor tour, and the tour itself can point at git-tracked
-folders as a callback rather than a preview. Scene & GameObject Hierarchy
-stays last (Part 3) either way.
+## Screenshot sources
 
-**The cover and Part 2 section break (1, 24)** carry the deck's ambient
-motif: a dashed ring marches slowly around the Unity logo, with a soft
-breathing glow behind it — teal on the cover, orange on the Part 2 break.
+Ten PNGs from Unity's official documentation are embedded. The original downloads
+and per-image source URLs are in [`src/screenshots/`](src/screenshots/), with a
+machine-readable [`sources.json`](src/screenshots/sources.json). Unity Technologies
+owns the source images. Sources also appear in the relevant speaker notes.
 
-**The everyday loop (10–12)** reuses Lecture 01's MDA-trio pattern: one
-shared box that changes colour, and a three-step chain on the right whose
-highlight walks down as you advance — Edit & Stage, Commit, Sync (push/pull).
+The editor overview is a real custom layout, not the default layout. The toolbar
+screenshot is labelled **Unity 6 Preview**, as shown in Unity's manual. Panel
+placement and appearance can vary with the installed version. Scene/Game view
+comparison images come from different example scenes, explicitly labelled.
 
-**Remotes & the GitHub Workflow (13)** finally names what "push" and "pull"
-have been pointing at since the Sync slide: a local-repo box and a GitHub
-("origin") box with animated push/pull arrows between them, plus the explicit
-`git clone` / `git remote -v` / `git push origin main` commands. Sets up
-today's lab, which starts with `git clone`.
+## Rebuilding
 
-**Branches (14)** is a from-scratch diagram, not adapted from Lecture 01: a
-`main` line with commit dots, a `feature/double-jump` branch forking off and
-merging back, both lines marching with dashed connectors at the fork/merge
-points.
-
-**Pull Requests & Code Review (16)** is the piece that turns "I know git
-commands" into "I can work on a team repo" — a four-step push → open PR →
-review → merge card row, plus a "why bother" callout. Most students have only
-ever pushed straight to `main`; worth demoing live on GitHub if you have a
-projector handy.
-
-**The Editor at a Glance (25)** is a labelled mock of the default Unity
-layout — Hierarchy, Scene/Game, Inspector, Project, Console, toolbar — that
-reveals panel by panel in a guided-tour order as you advance, with the
-Scene/Game panel carrying a slow breathing glow. Colour does double duty:
-the teal Project panel is now a *callback* to Part 1's version control
-(students already know what that folder is), and the blue Hierarchy/
-Inspector panels *preview* Part 3.
-
-**Play Mode — The One Gotcha (30)** is worth a slide of its own for a
-reason: "I changed something and it disappeared" is the single most common
-early support question. The framing is that Play Mode is a sandbox, not a
-save — changes made while playing revert the moment you stop.
-
-**Bringing It Together (38)** is the slide that ties the whole lecture
-together — it's the first time version control and the scene hierarchy
-visibly touch: adding a GameObject updates `Level01.unity` *and*
-`Level01.unity.meta`, and that pairing is exactly what you stage and commit.
-
-**Next Up (40)**'s Lecture 03 card is a placeholder ("Components & Your First
-Script", CLO-3) — the actual week-3 plan wasn't available when this deck was
-built, so confirm and edit that card before presenting.
-
-## Previews
-
-Contact sheets: [`preview/`](preview/).
-
-## Rebuilding the deck
-
-The deck is generated, same as Lecture 01. `src/build_doc.py` writes the
-document JSON into the `#bento-doc` block of the HTML file in place:
-
-```bash
-cd src && python3 build_doc.py
+```sh
+python3 lectures/02-inside-unity/src/build_doc.py
 ```
 
-It needs `src/fonts/fonts.json`, `src/fonts/photo-asset.json` (copied from
-Lecture 01 — same embedded typefaces and instructor photo, so the course reads
-as one visual system), and `src/fonts/unity-logo-asset.json` (the official
-Unity cube-logo mark, supplied by the instructor and embedded as a data URI —
-used on the cover and the Part 2 section break). Paths at the bottom of the
-script point at the deck; adjust them if you move things.
+The generator updates only the `#bento-doc` JSON block in the HTML. Its inputs
+are the embedded fonts, instructor photo, Unity logo, and the downloaded PNGs.
+No internet connection is needed to rebuild.
 
-After any change, open the deck and run `window.bento.validate()` in the
-browser console. It should report 0 errors and 0 warnings. It will not catch
-overlapping elements or a panel that looks empty, so look at the slides too
-— this build was checked by rendering every slide headlessly and reviewing
-each one, same as Lecture 01's process.
+## Review status and previews
+
+The revision corrects scene/meta behavior, text serialization and Smart Merge,
+Game-view gizmos, Play Mode asset exceptions, Transform terminology, hierarchy
+costs, Git snapshot semantics, LFS setup, branch geometry and the upcoming topics.
+
+The embedded Bento structural validator was run without a browser: **0 errors,
+0 warnings, 0 informational findings**. All slide/state layouts were checked
+with an independent static render using fallback fonts, and text-fit checks
+reported no overflow. These checks do not establish live animation behavior.
+
+[`preview/`](preview/) contains current **static layout previews**, including
+optional states. They use fallback fonts and omit animation, glow and some
+Bento-specific styling. Browser security policy blocked opening the local deck,
+so live playback and browser text measurements remain unverified. For the final
+presentation check, open the deck normally, use the controls listed above, and
+run `window.bento.validate()` in the browser console if desired.
