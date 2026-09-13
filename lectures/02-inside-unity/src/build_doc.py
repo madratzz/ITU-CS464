@@ -179,7 +179,7 @@ def footer(n, total=None, label="CS464 · GAME DEVELOPMENT"):
             align="right", extra={"letterSpacing":1.5}),
     ]
 
-TOTAL = 39
+TOTAL = 41
 
 # card helper reused across this deck — a labelled panel with a coloured left bar
 def panel(id_prefix, x, y, w, h, kick, kcol, title, body_html, bodycol=MUTED, bg=SURFACE,
@@ -226,6 +226,8 @@ els = [
     ellipse("cvlogoglow", 986-190, 286-190, 380, 380, ACCENT2, opacity=0.16,
             shadow=glow(ACCENT2_GLOW, 90),
             extra={"fx":{"ambient":"kenburns","ken":{"dir":"drift","scale":1.06,"duration":20}}}),
+    ring("cvlogor1", 986, 286, 300, "rgba(85,214,194,0.32)", strokeWidth=1.5, dashed=True, march=(34,11)),
+    ring("cvlogor2", 986, 286, 198, "rgba(255,255,255,0.08)", strokeWidth=1, dashed=False),
     {"id":"cvlogo","type":"image","x":986-120,"y":286-135,"w":240,"h":271,"rotation":0,"opacity":1,
      "src":"asset:logo-unity","fit":"contain"},
 ]
@@ -243,9 +245,10 @@ agenda_parts = [
     ("PART 2", "Version Control", ACCENT2, [
         "01&nbsp;&nbsp;Why solo file-juggling breaks down",
         "02&nbsp;&nbsp;Git's model &amp; the everyday loop",
-        "03&nbsp;&nbsp;Branching &amp; merge conflicts",
-        "04&nbsp;&nbsp;Making Unity projects behave",
-        "05&nbsp;&nbsp;A workflow checklist",
+        "03&nbsp;&nbsp;Branching, merging &amp; remotes",
+        "04&nbsp;&nbsp;Pull requests &amp; code review",
+        "05&nbsp;&nbsp;Making Unity projects behave",
+        "06&nbsp;&nbsp;A workflow checklist",
     ]),
     ("PART 3", "Scene &amp; GameObject Hierarchy", ACCENT3, [
         "01&nbsp;&nbsp;GameObjects &amp; Components",
@@ -354,6 +357,10 @@ els = [
     ellipse("sb5logoglow", 878, 210, 300, 300, ACCENT, opacity=0.14,
             shadow=glow(ACCENT_GLOW, 80),
             extra={"fx":{"enter":"fade-up","order":1,"ambient":"kenburns","ken":{"dir":"drift","scale":1.05,"duration":20}}}),
+    ring("sb5logor1", 1028, 360, 240, "rgba(255,138,61,0.32)", strokeWidth=1.5, dashed=True, march=(28,10),
+         extra={"fx":{"enter":"fade-up","order":1}}),
+    ring("sb5logor2", 1028, 360, 158, "rgba(255,255,255,0.08)", strokeWidth=1, dashed=False,
+         extra={"fx":{"enter":"fade-up","order":1}}),
     {"id":"sb5logo","type":"image","x":940,"y":261,"w":176,"h":199,"rotation":0,"opacity":0.92,
      "src":"asset:logo-unity","fit":"contain","fx":{"enter":"fade-up","order":1}},
 ] + footer(5)
@@ -365,31 +372,40 @@ els = [
     kicker("k6",MX,72,"Six windows, one workspace", color=ACCENT),
     txt("t6",MX,104,1100,70,"The Editor at a Glance",50,weight=800,family=DISPLAY),
     rect("eaogframe",96,196,1088,428,SURFACE2,radius=14,stroke=BORDER2,strokeWidth=1),
-    rect("eaogtoolbar",112,212,1056,32,BG,radius=8,stroke=BORDER,strokeWidth=1),
+    rect("eaogtoolbar",112,212,1056,32,BG,radius=8,stroke=BORDER,strokeWidth=1,
+         extra={"fx":{"enter":"fade-up","order":0}}),
     txt("eaogtoolbart",112+20,219,900,18,
         "&#9664;&nbsp;&nbsp;&#9654;&nbsp;&nbsp;&#9723;&nbsp;&nbsp;&nbsp;&nbsp;&#9635;&nbsp;&nbsp;&#8635;&nbsp;&nbsp;&#9639;&nbsp;&nbsp;&#9640;&nbsp;&nbsp;&nbsp;&nbsp;&#9654;&nbsp;PLAY",
-        12.5,color=MUTED,family=MONOF,extra={"letterSpacing":1}),
+        12.5,color=MUTED,family=MONOF,extra={"letterSpacing":1,"fx":{"enter":"fade-up","order":0}}),
 ]
+# panels reveal in a guided-tour order (Hierarchy -> Scene/Game -> Inspector -> Project -> Console);
+# the Scene/Game panel additionally carries a slow breathing glow, like a spotlight settling on it.
 panels6 = [
-    ("eaoghier", 112, 256, 204, 240, ACCENT3, "HIERARCHY", "Every object<br>in the scene"),
-    ("eaogscene", 328, 256, 536, 240, ACCENT, "SCENE / GAME", "What you're building, and what the player will actually see"),
-    ("eaoginsp", 876, 256, 292, 240, ACCENT3, "INSPECTOR", "Details of<br>whatever is selected"),
+    ("eaoghier", 112, 256, 204, 240, ACCENT3, "HIERARCHY", "Every object<br>in the scene", 1, None),
+    ("eaogscene", 328, 256, 536, 240, ACCENT, "SCENE / GAME", "What you're building, and what the player will actually see", 2,
+     glow(ACCENT_GLOW, 34)),
+    ("eaoginsp", 876, 256, 292, 240, ACCENT3, "INSPECTOR", "Details of<br>whatever is selected", 3, None),
 ]
-for pid,x,y,w,h,col,label,desc in panels6:
+for pid,x,y,w,h,col,label,desc,order,shd in panels6:
+    fx = {"fx":{"enter":"fade-up","order":order}}
+    if shd:
+        fx["fx"]["ambient"] = "kenburns"
+        fx["fx"]["ken"] = {"dir":"drift","scale":1.015,"duration":10}
     els += [
-        rect(f"{pid}bg",x,y,w,h,BG,radius=10,stroke=col,strokeWidth=1.5),
-        txt(f"{pid}k",x+16,y+14,w-32,20,label,11.5,color=col,weight=700,family=MONOF,extra={"letterSpacing":1.5}),
-        txt(f"{pid}d",x+16,y+42,w-32,h-58,desc,14,color=MUTED,lh=1.4),
+        rect(f"{pid}bg",x,y,w,h,BG,radius=10,stroke=col,strokeWidth=1.5,shadow=shd,extra=dict(fx)),
+        txt(f"{pid}k",x+16,y+14,w-32,20,label,11.5,color=col,weight=700,family=MONOF,extra={"letterSpacing":1.5,**fx}),
+        txt(f"{pid}d",x+16,y+42,w-32,h-58,desc,14,color=MUTED,lh=1.4,extra=dict(fx)),
     ]
 bottom6 = [
-    ("eaogproj", 112, 508, 516, 100, ACCENT2, "PROJECT", "Every file in your game &mdash; assets, scripts, scenes &mdash; laid out like folders on disk"),
-    ("eaogcons", 640, 508, 528, 100, ACCENT, "CONSOLE", "Errors, warnings, and your own <code>Debug.Log()</code> output, in one place"),
+    ("eaogproj", 112, 508, 516, 100, ACCENT2, "PROJECT", "Every file in your game &mdash; assets, scripts, scenes &mdash; laid out like folders on disk", 4),
+    ("eaogcons", 640, 508, 528, 100, ACCENT, "CONSOLE", "Errors, warnings, and your own <code>Debug.Log()</code> output, in one place", 5),
 ]
-for pid,x,y,w,h,col,label,desc in bottom6:
+for pid,x,y,w,h,col,label,desc,order in bottom6:
+    fx = {"fx":{"enter":"fade-up","order":order}}
     els += [
-        rect(f"{pid}bg",x,y,w,h,BG,radius=10,stroke=col,strokeWidth=1.5),
-        txt(f"{pid}k",x+18,y+12,w-36,20,label,11.5,color=col,weight=700,family=MONOF,extra={"letterSpacing":1.5}),
-        txt(f"{pid}d",x+18,y+36,w-36,52,desc,13.5,color=MUTED,lh=1.4),
+        rect(f"{pid}bg",x,y,w,h,BG,radius=10,stroke=col,strokeWidth=1.5,extra=dict(fx)),
+        txt(f"{pid}k",x+18,y+12,w-36,20,label,11.5,color=col,weight=700,family=MONOF,extra={"letterSpacing":1.5,**fx}),
+        txt(f"{pid}d",x+18,y+36,w-36,52,desc,13.5,color=MUTED,lh=1.4,extra=dict(fx)),
     ]
 els += footer(6)
 slides.append(slide(6, els, "Walk the room through the real Unity editor on screen while this slide is up, panel by panel — this is the moment the lecture becomes hands-on even without laptops open. Colour is a preview, not decoration: blue panels come back in Part 3, teal comes back in Part 2."))
@@ -649,7 +665,7 @@ els += [
 ] + footer(16)
 slides.append(slide(16, els, "This is THE diagram for today's whole git section — refer back to it verbally in every slide that follows. Files move left to right by your own explicit choice at each arrow; nothing moves to the next tree automatically."))
 
-# ============================================================ 10-12. THE EVERYDAY LOOP (walking chain, mirrors the MDA trio pattern)
+# ============================================================ 17-19. THE EVERYDAY LOOP (walking chain, mirrors the MDA trio pattern)
 LOOP_STEPS = [
     ("01","Edit &amp; Stage","git add",ACCENT,ACCENT_SOFT,ACCENT_GLOW),
     ("02","Commit","git commit",ACCENT2,ACCENT2_SOFT,ACCENT2_GLOW),
@@ -729,7 +745,50 @@ els = loop_slide(19,3,"Sync",ACCENT3,ACCENT3_SOFT,ACCENT3_GLOW,
     "bg12") + loop_chain(2) + footer(19)
 slides.append(slide(19, els, "This is where solo work becomes team work. Drill the 'pull before you push, pull before you start' habit — it's the cheapest possible insurance against the merge conflicts we look at in two slides."))
 
-# ============================================================ 20. BRANCHING MODEL
+# ============================================================ 20. REMOTES & GITHUB WORKFLOW
+els = [
+    rect("bg20",0,0,W,H,BG),
+    kicker("k20",MX,72,"Where 'push' and 'pull' actually go", color=ACCENT2),
+    txt("t20",MX,104,1100,64,"Remotes &amp; the GitHub Workflow",42,weight=800,family=DISPLAY),
+]
+RGY, RGH = 206, 200
+els += [
+    rect("rglocal",96,RGY,440,RGH,ACCENT2_SOFT,radius=14,stroke="rgba(85,214,194,0.35)",strokeWidth=1.5,
+         extra={"fx":{"enter":"fade-up","order":0}}),
+    txt("rglocalk",96+32,RGY+26,376,22,"YOUR COMPUTER",12.5,color=ACCENT2,weight=700,family=MONOF,
+        extra={"letterSpacing":2,"fx":{"enter":"fade-up","order":0}}),
+    txt("rglocalt",96+32,RGY+54,376,36,"Local Repository",21,weight=800,family=DISPLAY,
+        extra={"fx":{"enter":"fade-up","order":0}}),
+    txt("rglocald",96+32,RGY+96,376,90,
+        "The repo you've been committing to all lecture &mdash; every commit lands here first, offline, before it goes anywhere else.",
+        14.5,color=TEXT,lh=1.5,extra={"fx":{"enter":"fade-up","order":0}}),
+    rect("rgremote",744,RGY,440,RGH,ACCENT3_SOFT,radius=14,stroke="rgba(108,140,255,0.35)",strokeWidth=1.5,
+         extra={"fx":{"enter":"fade-up","order":1}}),
+    txt("rgremotek",744+32,RGY+26,376,22,"GITHUB",12.5,color=ACCENT3,weight=700,family=MONOF,
+        extra={"letterSpacing":2,"fx":{"enter":"fade-up","order":1}}),
+    txt("rgremotet",744+32,RGY+54,376,36,"origin",21,weight=800,family=DISPLAY,
+        extra={"fx":{"enter":"fade-up","order":1}}),
+    txt("rgremoted",744+32,RGY+96,376,90,
+        "The shared copy your team pushes to and pulls from. By convention, git calls this remote &ldquo;origin&rdquo;.",
+        14.5,color=TEXT,lh=1.5,extra={"fx":{"enter":"fade-up","order":1}}),
+    line("rgpush",556,266,168,1,ACCENT2,strokeWidth=3,dashed=True,lineEnd="arrow",
+         extra={"fx":{"loop":{"type":"dash-march","distance":14,"duration":1.6}}}),
+    txt("rgpusht",556,240,168,20,"git push",13,color=ACCENT2,family=MONOF,align="center",extra={"letterSpacing":1}),
+    line("rgpull",556,332,168,1,ACCENT3,strokeWidth=3,dashed=True,lineStart="arrow",
+         extra={"fx":{"loop":{"type":"dash-march","distance":14,"duration":1.6}}}),
+    txt("rgpullt",556,340,168,20,"git pull",13,color=ACCENT3,family=MONOF,align="center",extra={"letterSpacing":1}),
+    rect("rgcmdbox",96,432,1088,172,SURFACE,radius=14,stroke=BORDER,strokeWidth=1),
+    txt("rgcmdk",96+32,456,600,22,"COMMANDS YOU'LL ACTUALLY TYPE",12,color=ACCENT2,weight=700,family=MONOF,
+        extra={"letterSpacing":1.5}),
+    txt("rgcmdb",96+32,486,1008,110,
+        "git clone &lt;url&gt; &nbsp;&mdash;&nbsp; download an existing remote repo, wired up as &ldquo;origin&rdquo; automatically<br>"
+        "git remote -v &nbsp;&mdash;&nbsp; see which remote(s) a repo is wired to, and their URLs<br>"
+        "git push origin main / git pull origin main &nbsp;&mdash;&nbsp; the explicit form of push and pull",
+        15,color=MUTED,family=MONOF,lh=1.85),
+] + footer(20)
+slides.append(slide(20, els, "Everything in the everyday loop's 'Sync' step has been pointing at a remote this whole time — this slide just names it. 'origin' is a convention, not a keyword; a repo can have more than one remote, though student projects almost never need to. Today's lab starts with git clone, which wires up origin for you automatically."))
+
+# ============================================================ 21. BRANCHING MODEL
 els = [
     rect("bg13",0,0,W,H,BG),
     kicker("k13",MX,72,"Working without stepping on each other", color=ACCENT2),
@@ -767,10 +826,10 @@ els += [
         "Nothing you do on <b>feature/double-jump</b> touches <b>main</b> until you deliberately merge it back. "
         "Break something? Delete the branch &mdash; main was never at risk.",
         15.5,color=MUTED,lh=1.5),
-] + footer(20)
-slides.append(slide(20, els, "The mental model: main is the trunk that always works. A feature branch is a sandbox off to the side. This is the single idea that makes it safe to experiment — walk your finger along the diagram as you narrate fork, work, merge."))
+] + footer(21)
+slides.append(slide(21, els, "The mental model: main is the trunk that always works. A feature branch is a sandbox off to the side. This is the single idea that makes it safe to experiment — walk your finger along the diagram as you narrate fork, work, merge."))
 
-# ============================================================ 21. MERGE CONFLICTS
+# ============================================================ 22. MERGE CONFLICTS
 els = [
     rect("bg14",0,0,W,H,BG),
     kicker("k14",MX,72,"When two people touch the same lines", color=ACCENT2),
@@ -799,10 +858,46 @@ for i,step in enumerate(resolve_steps):
         txt(f"rs{i}n",728,y+2,26,26,str(i+1),13,color=ACCENT2,weight=800,family=DISPLAY,align="center",valign="middle",extra=fx),
         txt(f"rs{i}t",772,y-6,392,70,step,15,color=MUTED,lh=1.45,extra=fx),
     ]
-els += footer(21)
-slides.append(slide(21, els, "This is not a rare failure mode — it's a normal Tuesday on a team project. Demystify it: a conflict is git honestly saying 'I don't know which of these you want', not a sign something is broken. Live-resolve one during lab if time allows."))
+els += footer(22)
+slides.append(slide(22, els, "This is not a rare failure mode — it's a normal Tuesday on a team project. Demystify it: a conflict is git honestly saying 'I don't know which of these you want', not a sign something is broken. Live-resolve one during lab if time allows."))
 
-# ============================================================ 22. WHY UNITY PROJECTS ARE DIFFERENT
+# ============================================================ 23. PULL REQUESTS & CODE REVIEW
+pr_steps = [
+    ("1","Push Your Branch","<code>git push origin feature/double-jump</code> &mdash; your branch, now visible on GitHub."),
+    ("2","Open a Pull Request","Propose merging your branch into <code>main</code>. GitHub shows exactly what changed, line by line."),
+    ("3","Teammate Reviews","They read the diff, leave comments, request changes, or approve &mdash; before anything touches main."),
+    ("4","Merge","Once approved, merge the PR. <code>main</code> has the change, and a permanent record of who reviewed it."),
+]
+els = [
+    rect("bg23",0,0,W,H,BG),
+    kicker("k23",MX,72,"The step between 'it works on my machine' and main", color=ACCENT2),
+    txt("t23",MX,104,1100,64,"Pull Requests &amp; Code Review",42,weight=800,family=DISPLAY),
+]
+prx = [96, 376, 656, 936]
+for i,(n,name,desc) in enumerate(pr_steps):
+    x = prx[i]
+    fx = {"fx":{"enter":"fade-up","order":i}}
+    els += [
+        rect(f"pr{i}",x,206,248,210,SURFACE,radius=14,stroke=ACCENT2,strokeWidth=1.5,extra=fx),
+        rect(f"pr{i}nbg",x+24,230,38,38,BG,radius=19,stroke=ACCENT2,strokeWidth=1.5,extra=fx),
+        txt(f"pr{i}n",x+24,230,38,38,n,16,weight=800,family=MONOF,color=ACCENT2,align="center",valign="middle",extra=fx),
+        txt(f"pr{i}t",x+24,280,200,46,name,17,weight=700,family=DISPLAY,lh=1.2,extra=fx),
+        txt(f"pr{i}d",x+24,330,200,78,desc,12,color=MUTED,lh=1.35,extra=fx),
+    ]
+els += [
+    rect("prwhybox",96,444,1088,160,ACCENT2_SOFT,radius=16,stroke="rgba(85,214,194,0.35)",strokeWidth=1,
+         extra={"fx":{"enter":"fade-up","order":4}}),
+    txt("prwhyk",96+40,472,1008,22,"WHY BOTHER",12.5,color=ACCENT2,weight=700,family=MONOF,
+        extra={"letterSpacing":2,"fx":{"enter":"fade-up","order":4}}),
+    txt("prwhyb",96+40,500,1008,90,
+        "A pull request is a checkpoint, not paperwork: a second pair of eyes catches bugs, spots a conflict early, "
+        "and leaves your team a running log of what changed and why &mdash; the same review habit real studios use, "
+        "for the same reasons.",
+        16,color=TEXT,lh=1.6,extra={"fx":{"enter":"fade-up","order":4}}),
+] + footer(23)
+slides.append(slide(23, els, "This is the piece that turns 'I know git commands' into 'I can work on a team repo' — most students have only ever pushed straight to main. Frame it plainly: nothing reaches main without someone else looking at it first, even on a two-person team. Worth demoing live on GitHub if a projector's handy."))
+
+# ============================================================ 24. WHY UNITY PROJECTS ARE DIFFERENT
 els = [
     rect("bg15",0,0,W,H,BG),
     kicker("k15",MX,72,"The part git wasn't built for", color=ACCENT2),
@@ -818,10 +913,10 @@ els += panel("wu2",656,206,528,400,"A SCENE OR PREFAB (.unity / .prefab)",ACCENT
     "merged line-by-line &mdash; git can only pick one side or ask a human to redo the work.<br><br>"
     "This is why teams split scenes/prefabs by owner and merge less often on shared ones.",
     bodycol=TEXT,bg=ACCENT3_SOFT,border="rgba(108,140,255,0.35)",barcol=ACCENT3,order=1,body_size=16.5,lh=1.7)
-els += footer(22)
-slides.append(slide(22, els, "Set expectations honestly: git is a text-diffing tool wearing a binary-file trenchcoat when it comes to scenes and prefabs. The fix isn't a tool, it's a workflow — communicate who's touching what before you touch it."))
+els += footer(24)
+slides.append(slide(24, els, "Set expectations honestly: git is a text-diffing tool wearing a binary-file trenchcoat when it comes to scenes and prefabs. The fix isn't a tool, it's a workflow — communicate who's touching what before you touch it."))
 
-# ============================================================ 23. .GITIGNORE FOR UNITY
+# ============================================================ 25. .GITIGNORE FOR UNITY
 gi_rows = [{"cells":[{"html":"Ignore (never commit)","bold":True},{"html":"Why","bold":True}]}]
 gi_data = [
     ("Library/","Unity's rebuildable local cache &mdash; gigabytes, regenerates automatically."),
@@ -854,10 +949,10 @@ els = [
         15,color=TEXT,lh=1.9),
     txt("gisrc",96,548,1088,24,"Unity ships an official template &mdash; start from <code>github.com/github/gitignore/blob/main/Unity.gitignore</code>.",
         13.5,color=FAINT,family=MONOF),
-] + footer(23)
-slides.append(slide(23, els, "Don't make them memorize this list — point out it's one download, added once, per project, on day one. The teaching point is the CATEGORY of thing to ignore (generated/local/output), not the specific folder names."))
+] + footer(25)
+slides.append(slide(25, els, "Don't make them memorize this list — point out it's one download, added once, per project, on day one. The teaching point is the CATEGORY of thing to ignore (generated/local/output), not the specific folder names."))
 
-# ============================================================ 24. THE .meta GOTCHA
+# ============================================================ 26. THE .meta GOTCHA
 els = [
     rect("bg17",0,0,W,H,BG),
     kicker("k17",MX,72,"The mistake that eats a whole lab session", color=ACCENT),
@@ -878,10 +973,10 @@ els = [
     rect("metafix",96,522,1088,70,SURFACE,radius=12,stroke=BORDER,strokeWidth=1),
     txt("metafixt",96+28,542,1032,32,"THE FIX &mdash; never rename, move, or delete an asset outside Unity's own Project window; let the editor keep the .meta file in sync.",
         14.5,color=MUTED,lh=1.45),
-] + footer(24)
-slides.append(slide(24, els, "This is the single most common real-world bug report in a student team project, almost always traced to Finder/Explorer renaming a file outside Unity, or a stray '*.meta' line left in someone's .gitignore. Worth a slow, deliberate slide."))
+] + footer(26)
+slides.append(slide(26, els, "This is the single most common real-world bug report in a student team project, almost always traced to Finder/Explorer renaming a file outside Unity, or a stray '*.meta' line left in someone's .gitignore. Worth a slow, deliberate slide."))
 
-# ============================================================ 25. GIT LFS FOR BINARY ASSETS
+# ============================================================ 27. GIT LFS FOR BINARY ASSETS
 els = [
     rect("bg18",0,0,W,H,BG),
     kicker("k18",MX,72,"When your assets outgrow plain git", color=ACCENT2),
@@ -901,10 +996,10 @@ els += panel("lfs2",656,220,528,340,"WITH GIT LFS",ACCENT2,None,
 els += [
     txt("lfscmd",96,584,1088,26,"git lfs track &quot;*.png&quot; &quot;*.wav&quot; &quot;*.fbx&quot;  &mdash;&nbsp; set this up once, before you add your first texture.",
         14.5,color=FAINT,family=MONOF),
-] + footer(25)
-slides.append(slide(25, els, "Not every student project needs LFS on day one, but every Unity team eventually does — flag it now so nobody discovers it three weeks in with a 2GB repo that takes ten minutes to clone."))
+] + footer(27)
+slides.append(slide(27, els, "Not every student project needs LFS on day one, but every Unity team eventually does — flag it now so nobody discovers it three weeks in with a 2GB repo that takes ten minutes to clone."))
 
-# ============================================================ 26. COMMON PITFALLS & RECOVERY
+# ============================================================ 28. COMMON PITFALLS & RECOVERY
 pitfalls = [
     ("Committed Library/ by accident","Add it to .gitignore, then <code>git rm -r --cached Library</code> to untrack it without deleting your files.",ACCENT),
     ("Wrote a terrible commit message","Fine &mdash; it's permanent, but harmless. Just write a better one next time. Don't rewrite shared history to fix it.",ACCENT2),
@@ -925,10 +1020,10 @@ for i,(problem,fix,col) in enumerate(pitfalls):
         txt(f"pf{i}p",96+28,y+14,1032,26,problem,16.5,weight=700,family=DISPLAY,color=col,extra=fx),
         txt(f"pf{i}f",96+28,y+44,1032,44,fix,14.5,color=MUTED,lh=1.4,extra=fx),
     ]
-els += footer(26)
-slides.append(slide(26, els, "The framing that matters here: almost every git mistake is recoverable, which is the entire point of version control. Say this out loud — students are often more afraid of git than of the bug they're trying to fix."))
+els += footer(28)
+slides.append(slide(28, els, "The framing that matters here: almost every git mistake is recoverable, which is the entire point of version control. Say this out loud — students are often more afraid of git than of the bug they're trying to fix."))
 
-# ============================================================ 27. WORKFLOW CHECKLIST
+# ============================================================ 29. WORKFLOW CHECKLIST
 els = [
     rect("bg20",0,0,W,H,BG),
     kicker("k20",MX,72,"Before you write a line of gameplay code", color=ACCENT2),
@@ -942,10 +1037,10 @@ els = [
         "&#9679;&nbsp; Never commit <code>Library/</code> or <code>Temp/</code><br>"
         "&#9679;&nbsp; Pull before you start work, push before you stop",
         20, color=TEXT, lh=2.15, extra={"fx":{"enter":"fade-up","order":0}}),
-] + footer(27)
-slides.append(slide(27, els, "This is the slide to screenshot. Every item on it is something a past student learned the hard way — frame it as inherited wisdom, not an arbitrary rulebook. Today's lab walks through the first three items live."))
+] + footer(29)
+slides.append(slide(29, els, "This is the slide to screenshot. Every item on it is something a past student learned the hard way — frame it as inherited wisdom, not an arbitrary rulebook. Today's lab walks through the first three items live."))
 
-# ============================================================ 28. VERSION CONTROL RECAP
+# ============================================================ 30. VERSION CONTROL RECAP
 els = [
     rect("bg21",0,0,W,H,BG),
     kicker("k21",MX,72,"Part 2, in one breath", color=ACCENT2),
@@ -958,10 +1053,10 @@ els = [
         "risking <code>main</code>. Unity's binary files don't merge like code does, so a "
         ".gitignore, tracked .meta files, and LFS for big assets are what make a Unity repo behave.",
         20,color=TEXT,lh=1.85),
-] + footer(28)
-slides.append(slide(28, els, "Read this slide slowly, it's the entire section in five sentences. If a student remembers nothing else from Part 2, this paragraph is what they should retain."))
+] + footer(30)
+slides.append(slide(30, els, "Read this slide slowly, it's the entire section in five sentences. If a student remembers nothing else from Part 2, this paragraph is what they should retain."))
 
-# ============================================================ 29. SECTION BREAK — SCENE & GAMEOBJECT HIERARCHY
+# ============================================================ 31. SECTION BREAK — SCENE & GAMEOBJECT HIERARCHY
 els = [
     rect("bg22",0,0,W,H,BG),
     rect("sb22line",MX,300,120,4,ACCENT3,shadow=glow(ACCENT3_GLOW,18),
@@ -970,10 +1065,10 @@ els = [
     txt("sb22t",MX,346,1120,160,"Scene &amp; GameObject<br>Hierarchy",58,weight=800,family=DISPLAY,extra={"letterSpacing":-1,"fx":{"enter":"fade-up","order":1}}),
     txt("sb22s",MX,556,1000,40,"Everything in Unity is built from two ideas. Today, both of them.",20,color=MUTED,
         extra={"fx":{"enter":"fade-up","order":2}}),
-] + footer(29)
-slides.append(slide(29, els, "Second half, same energy shift as the git section — but this time it's the part they'll be staring at in the editor every single lab from here on. This is the vocabulary for reading anyone's Hierarchy panel, including their own, six weeks from now.", transition="fade"))
+] + footer(31)
+slides.append(slide(31, els, "Second half, same energy shift as the git section — but this time it's the part they'll be staring at in the editor every single lab from here on. This is the vocabulary for reading anyone's Hierarchy panel, including their own, six weeks from now.", transition="fade"))
 
-# ============================================================ 30. WHAT IS A SCENE
+# ============================================================ 32. WHAT IS A SCENE
 els = [
     rect("bg23",0,0,W,H,BG),
     kicker("k23",MX,72,"Defining our terms", color=ACCENT3),
@@ -998,10 +1093,10 @@ for i,(name,desc,col) in enumerate(scene_facts):
         txt(f"sf{i}t",x+24,368,292,30,name,17,weight=700,family=DISPLAY,color=col,extra=fx),
         txt(f"sf{i}d",x+24,404,292,140,desc,14.5,color=MUTED,lh=1.55,extra=fx),
     ]
-els += footer(30)
-slides.append(slide(30, els, "The 'text-based so git CAN diff it' callback ties directly back to Part 2 — Scenes are the one binary-ish Unity asset that at least partially plays nice with version control, unlike prefabs and most imported assets."))
+els += footer(32)
+slides.append(slide(32, els, "The 'text-based so git CAN diff it' callback ties directly back to Part 2 — Scenes are the one binary-ish Unity asset that at least partially plays nice with version control, unlike prefabs and most imported assets."))
 
-# ============================================================ 31. GAMEOBJECTS & COMPONENTS
+# ============================================================ 33. GAMEOBJECTS & COMPONENTS
 comp_chips = [
     ("Transform","always present",ACCENT2),
     ("Sprite Renderer","how it looks",ACCENT3),
@@ -1029,10 +1124,10 @@ for i,(name,role,col) in enumerate(comp_chips):
         txt(f"cc{i}n",x+18,y+9,w-36,24,name,15.5,weight=700,family=MONOF if "." in name else DISPLAY,color=col,extra=fx),
         txt(f"cc{i}r",x+18,y+35,w-36,22,role,12.5,color=MUTED,extra=fx),
     ]
-els += footer(31)
-slides.append(slide(31, els, "This is the composition-over-inheritance idea, stated for the first time — you'll come back to this exact sentence when you teach SOLID and component architecture later in the semester. A GameObject IS its components; remove them all and there's nothing left but a name."))
+els += footer(33)
+slides.append(slide(33, els, "This is the composition-over-inheritance idea, stated for the first time — you'll come back to this exact sentence when you teach SOLID and component architecture later in the semester. A GameObject IS its components; remove them all and there's nothing left but a name."))
 
-# ============================================================ 32. THE TRANSFORM COMPONENT
+# ============================================================ 34. THE TRANSFORM COMPONENT
 els = [
     rect("bg25",0,0,W,H,BG),
     kicker("k25",MX,72,"The one component every object has", color=ACCENT3),
@@ -1058,10 +1153,10 @@ els += [
         "&ldquo;Local&rdquo; values are relative to the parent; the Inspector shows local by default. "
         "&ldquo;World&rdquo; position is where the object actually ends up once every parent's transform stacks on top.",
         15,color=MUTED,lh=1.5),
-] + footer(32)
-slides.append(slide(32, els, "The local-vs-world distinction is the single most common source of 'why is my object in the wrong place' bugs once hierarchy nesting starts — plant the seed here, it pays off the moment parent-child transforms show up next slide."))
+] + footer(34)
+slides.append(slide(34, els, "The local-vs-world distinction is the single most common source of 'why is my object in the wrong place' bugs once hierarchy nesting starts — plant the seed here, it pays off the moment parent-child transforms show up next slide."))
 
-# ============================================================ 33. PARENT-CHILD HIERARCHY
+# ============================================================ 35. PARENT-CHILD HIERARCHY
 els = [
     rect("bg26",0,0,W,H,BG),
     kicker("k26",MX,72,"Grouping objects on purpose", color=ACCENT3),
@@ -1094,10 +1189,10 @@ els += [
         "&#9679;&nbsp; Deleting the parent deletes every child with it &mdash; a real, "
         "common way to lose more than you meant to.",
         16,color=MUTED,lh=1.65),
-] + footer(33)
-slides.append(slide(33, els, "Have someone predict out loud what happens to the children's Inspector values if you move the parent — most guess they'll change, and are surprised the local values stay identical. That surprise is the whole point of this slide."))
+] + footer(35)
+slides.append(slide(35, els, "Have someone predict out loud what happens to the children's Inspector values if you move the parent — most guess they'll change, and are surprised the local values stay identical. That surprise is the whole point of this slide."))
 
-# ============================================================ 34. ORGANIZING A SCENE LIKE A PRO
+# ============================================================ 36. ORGANIZING A SCENE LIKE A PRO
 hier_tree = [
     (0,"&#128193; Managers",ACCENT2,False),
     (1,"GameManager",MUTED,True),
@@ -1137,10 +1232,10 @@ els += [
         "&#9679;&nbsp; A namespace that avoids duplicate top-level names<br>"
         "&#9679;&nbsp; The exact grouping pattern your lab starter scene already uses",
         15.5,color=MUTED,lh=1.6),
-] + footer(34)
-slides.append(slide(34, els, "This is the slide that turns 'I have 60 loose objects in my Hierarchy' into a habit fixed before it starts. Point out this is precisely the pattern the lab starter project already ships with — they'll recognize it immediately when they open Unity."))
+] + footer(36)
+slides.append(slide(36, els, "This is the slide that turns 'I have 60 loose objects in my Hierarchy' into a habit fixed before it starts. Point out this is precisely the pattern the lab starter project already ships with — they'll recognize it immediately when they open Unity."))
 
-# ============================================================ 35. SCENES AT SCALE
+# ============================================================ 37. SCENES AT SCALE
 els = [
     rect("bg28",0,0,W,H,BG),
     kicker("k28",MX,72,"A quick look ahead", color=ACCENT3),
@@ -1158,10 +1253,10 @@ els = [
         "a later lecture, once you have scripts to drive it. Today, just the intuition: "
         "one scene, one moment in the game; many scenes, one project.",
         15.5,color=MUTED,lh=1.6),
-] + footer(35)
-slides.append(slide(35, els, "Deliberately light-touch — the point is only to stop 'a game is one giant scene' from becoming a misconception, not to teach SceneManager yet. That's Bloom L2 territory: understand it exists, don't implement it yet."))
+] + footer(37)
+slides.append(slide(37, els, "Deliberately light-touch — the point is only to stop 'a game is one giant scene' from becoming a misconception, not to teach SceneManager yet. That's Bloom L2 territory: understand it exists, don't implement it yet."))
 
-# ============================================================ 36. BRINGING IT TOGETHER
+# ============================================================ 38. BRINGING IT TOGETHER
 els = [
     rect("bg29",0,0,W,H,BG),
     kicker("k29",MX,72,"Where today's two halves meet", color=ACCENT2),
@@ -1179,10 +1274,10 @@ els = [
         "git add Assets/Scenes/Level01.unity Assets/Scenes/Level01.unity.meta<br>"
         "git commit -m &quot;Add Player GameObject with movement script&quot;",
         16,color=ACCENT2,family=MONOF,lh=1.9),
-] + footer(36)
-slides.append(slide(36, els, "This slide is the whole lecture in one worked example — walk it slowly, it's the first time the two halves of today visibly touch. The commit message names WHAT changed in the hierarchy, which is exactly the habit from the workflow checklist."))
+] + footer(38)
+slides.append(slide(38, els, "This slide is the whole lecture in one worked example — walk it slowly, it's the first time the two halves of today visibly touch. The commit message names WHAT changed in the hierarchy, which is exactly the habit from the workflow checklist."))
 
-# ============================================================ 37. KEY TAKEAWAYS
+# ============================================================ 39. KEY TAKEAWAYS
 els = [
     rect("bg30",0,0,W,H,BG),
     kicker("k30",MX,72,"If you remember nothing else", color=ACCENT2),
@@ -1203,10 +1298,10 @@ for i,(t,d,col) in enumerate(takeaways):
         txt(f"tk{i}t",96+100,y+18,940,32,t,21,weight=800,family=DISPLAY,extra=fx),
         txt(f"tk{i}d",96+100,y+56,940,50,d,15.5,color=MUTED,lh=1.4,extra=fx),
     ]
-els += footer(37)
-slides.append(slide(37, els, "Read these three out loud slowly, same as Lecture 01's takeaways slide — this is the version students should be able to repeat back next week, even once the command syntax has faded."))
+els += footer(39)
+slides.append(slide(39, els, "Read these three out loud slowly, same as Lecture 01's takeaways slide — this is the version students should be able to repeat back next week, even once the command syntax has faded."))
 
-# ============================================================ 38. NEXT UP
+# ============================================================ 40. NEXT UP
 els = [
     rect("bg31",0,0,W,H,BG),
     kicker("k31",MX,72,"Looking ahead"),
@@ -1223,10 +1318,10 @@ els = [
     txt("nx2d",656+32,346,460,110,"Writing a MonoBehaviour, the component lifecycle, and moving a GameObject with real C# &mdash; CLO-3 begins.",16.5,color=MUTED,lh=1.6,extra={"fx":{"enter":"fade-up","order":1}}),
     rect("nxread",96,510,1088,74,ACCENT2_SOFT,radius=12,stroke="rgba(85,214,194,0.3)",strokeWidth=1,extra={"fx":{"enter":"fade-up","order":2}}),
     txt("nxreadt",96+28,533,1032,30,"Before then: install <b>Git</b> and create a free <b>GitHub</b> account &mdash; bring a laptop with both ready for lab.",16.5,color=TEXT,extra={"fx":{"enter":"fade-up","order":2}}),
-] + footer(38)
-slides.append(slide(38, els, "Lecture 03's exact scope is a placeholder — confirm against the actual week-3 plan before presenting and adjust this card if needed. The lab card is firm: git setup is the natural hands-on partner to today's Part 2."))
+] + footer(40)
+slides.append(slide(40, els, "Lecture 03's exact scope is a placeholder — confirm against the actual week-3 plan before presenting and adjust this card if needed. The lab card is firm: git setup is the natural hands-on partner to today's Part 2."))
 
-# ============================================================ 39. THANK YOU
+# ============================================================ 41. THANK YOU
 els = [
     rect("bg32",0,0,W,H,BG),
     rect("tf2", MX, 220, 64, 3, ACCENT2, shadow=glow(ACCENT2_GLOW, 18),
@@ -1236,8 +1331,8 @@ els = [
     rect("tydiv",MX,428,340,2,BORDER2,extra={"fx":{"enter":"fade-up","order":2}}),
     txt("typrompt",MX,456,760,80,"One thing to bring to lab: create a Git repository for any folder on your computer and make one real commit.",19,color=MUTED,lh=1.55,extra={"fx":{"enter":"fade-up","order":2}}),
     txt("tycontact",MX,560,700,30,"hello@madratzz.net &nbsp;&middot;&nbsp; muhammadraza.vf@itu.edu.pk",15,color=FAINT,family=MONOF,extra={"fx":{"enter":"fade-up","order":3}}),
-] + footer(39)
-slides.append(slide(39, els, "Close on the discussion prompt — a soft assignment that gets everyone touching git before lab even starts. Stay after for individual questions, especially from anyone whose laptop needs Git installed."))
+] + footer(41)
+slides.append(slide(41, els, "Close on the discussion prompt — a soft assignment that gets everyone touching git before lab even starts. Stay after for individual questions, especially from anyone whose laptop needs Git installed."))
 
 print(f"Total slides built: {len(slides)}")
 

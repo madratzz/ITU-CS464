@@ -1,6 +1,6 @@
 # Lecture 02 — Inside Unity
 
-39 slides. The Unity Editor itself, then version control for game projects, then
+41 slides. The Unity Editor itself, then version control for game projects, then
 the Scene/GameObject mental model — CLO-2, Bloom L2 (Understand). The Unity
 Environment Tour now happens inside this lecture (Part 1) rather than in a
 separate lab, so this deck opens with laptops-open editor tour before moving
@@ -19,21 +19,32 @@ into git and the scene graph.
 | 12 | Section break — Version Control for Game Projects |
 | 13–16 | The problem it solves, what version control is, why git specifically, git's three trees |
 | 17–19 | The everyday loop — Edit & Stage, Commit, Sync — revealed as a walking chain |
-| 20–21 | Branching, and merge conflicts (what one looks like, how to resolve it) |
-| 22–26 | Why Unity projects are different, .gitignore, the .meta gotcha, Git LFS, common pitfalls & recovery |
-| 27–28 | Workflow checklist, Version Control recap |
-| 29 | Section break — Scene & GameObject Hierarchy |
-| 30–35 | What is a Scene, GameObjects & Components, the Transform, parent-child hierarchy, organizing a scene, scenes at scale |
-| 36 | Bringing it together — the worked example tying git and hierarchy into one commit |
-| 37–39 | Key takeaways, next up, questions |
+| 20 | Remotes & the GitHub workflow — origin, clone, push/pull, made explicit |
+| 21–22 | Branching, and merge conflicts (what one looks like, how to resolve it) |
+| 23 | Pull requests & code review — push branch, open PR, review, merge |
+| 24–28 | Why Unity projects are different, .gitignore, the .meta gotcha, Git LFS, common pitfalls & recovery |
+| 29–30 | Workflow checklist, Version Control recap |
+| 31 | Section break — Scene & GameObject Hierarchy |
+| 32–37 | What is a Scene, GameObjects & Components, the Transform, parent-child hierarchy, organizing a scene, scenes at scale |
+| 38 | Bringing it together — the worked example tying git and hierarchy into one commit |
+| 39–41 | Key takeaways, next up, questions |
 
 ## Slides worth knowing about before you present
 
+**The cover and Part 1 section break (1, 5)** carry the deck's ambient motif:
+a dashed ring marches slowly around the Unity logo, with a soft breathing glow
+behind it — teal on the cover, orange on the Part 1 break. It replaces an
+earlier generic "orbiting dots" motif with something that reads as Unity's own
+mark in motion, without literal orbiting bodies.
+
 **The Editor at a Glance (6)** is a labelled mock of the default Unity layout —
-Hierarchy, Scene/Game, Inspector, Project, Console, toolbar — colour-coded as a
-preview of what's ahead: blue panels (Hierarchy, Inspector) come back in Part 3,
-teal (Project window) comes back in Part 2. Walk the room through the real
-editor on screen while this slide is up.
+Hierarchy, Scene/Game, Inspector, Project, Console, toolbar — that reveals
+panel by panel in a guided-tour order (toolbar, then Hierarchy, Scene/Game,
+Inspector, Project, Console) as you advance, with the Scene/Game panel
+carrying a slow breathing glow to draw the eye. Colour is also a preview of
+what's ahead: blue panels (Hierarchy, Inspector) come back in Part 3, teal
+(Project window) comes back in Part 2. Walk the room through the real editor
+on screen while this slide is up.
 
 **Play Mode — The One Gotcha (11)** is worth a slide of its own for a reason:
 "I changed something and it disappeared" is the single most common early
@@ -44,17 +55,29 @@ changes made while playing revert the moment you stop.
 box that changes colour, and a three-step chain on the right whose highlight
 walks down as you advance — Edit & Stage, Commit, Sync (push/pull).
 
-**Branches (20)** is a from-scratch diagram, not adapted from Lecture 01: a
+**Remotes & the GitHub Workflow (20)** finally names what "push" and "pull"
+have been pointing at since the Sync slide: a local-repo box and a GitHub
+("origin") box with animated push/pull arrows between them, plus the explicit
+`git clone` / `git remote -v` / `git push origin main` commands. Sets up
+today's lab, which starts with `git clone`.
+
+**Branches (21)** is a from-scratch diagram, not adapted from Lecture 01: a
 `main` line with commit dots, a `feature/double-jump` branch forking off and
 merging back, both lines marching with dashed connectors at the fork/merge
 points.
 
-**Bringing It Together (36)** is the slide that ties the whole lecture
+**Pull Requests & Code Review (23)** is the piece that turns "I know git
+commands" into "I can work on a team repo" — a four-step push → open PR →
+review → merge card row, plus a "why bother" callout. Most students have only
+ever pushed straight to `main`; worth demoing live on GitHub if you have a
+projector handy.
+
+**Bringing It Together (38)** is the slide that ties the whole lecture
 together — it's the first time version control and the scene hierarchy
 visibly touch: adding a GameObject updates `Level01.unity` *and*
 `Level01.unity.meta`, and that pairing is exactly what you stage and commit.
 
-**Next Up (38)**'s Lecture 03 card is a placeholder ("Components & Your First
+**Next Up (40)**'s Lecture 03 card is a placeholder ("Components & Your First
 Script", CLO-3) — the actual week-3 plan wasn't available when this deck was
 built, so confirm and edit that card before presenting.
 
